@@ -431,49 +431,14 @@ document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') closeModal();
 });
 
-// Form submission to Tally via hidden form
-document.getElementById('waitlistForm').addEventListener('submit', function(e) {
-  e.preventDefault();
-  var btn = document.getElementById('submitBtn');
-  btn.textContent = 'Locking in...';
-  btn.disabled = true;
+// Redirect to Tally with pre-filled values
+  var tallyUrl = 'https://tally.so/r/VLNe2E' +
+    '?name=' + encodeURIComponent(name) +
+    '&email=' + encodeURIComponent(email) +
+    '&phone=' + encodeURIComponent(phone) +
+    '&city=' + encodeURIComponent(city);
 
-  var name = document.getElementById('fname').value;
-  var email = document.getElementById('femail').value;
-  var phone = document.getElementById('fphone').value;
-  var city = document.getElementById('fcity').value;
-
-  // Create and submit a hidden form to Tally
-  var form = document.createElement('form');
-  form.method = 'POST';
-  form.action = 'https://tally.so/r/VLNe2E';
-  form.target = 'tallyFrame';
-
-  var fields = {name: name, email: email, phone: phone, city: city};
-  for (var k in fields) {
-    var input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = k;
-    input.value = fields[k];
-    form.appendChild(input);
-  }
-
-  document.body.appendChild(form);
-  form.submit();
-  document.body.removeChild(form);
-
-  // Show success after short delay
-  setTimeout(function() {
-    document.getElementById('formCard').style.display = 'none';
-    document.getElementById('successCard').classList.add('show');
-
-    // Increment counter
-    var el = document.getElementById('signupCount');
-    var current = parseInt(el.textContent);
-    el.textContent = (current + 1) + ' people';
-
-    document.getElementById('waitlist').scrollIntoView({behavior: 'smooth'});
-  }, 800);
+  window.location.href = tallyUrl;
 });
 
 // Smooth scroll
