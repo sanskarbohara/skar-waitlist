@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Skar — Your phone is the problem. We're the fix. Lock in your sleep schedule and wake up different." />
+  <meta property="og:title" content="Skar — Lock in." />
+  <meta property="og:description" content="Your phone is the problem. We're the fix." />
+  <meta property="og:image" content="https://raw.githubusercontent.com/sanskarbohara/skar-legal/main/Skar%20Logo%20without%20text.png" />
+  <title>Skar — Lock in.</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      --bg:#0a0a12;--bg2:#111;--bg3:#0f0f18;
+      --border:#1a1a1a;--purple:#7C6AF7;--pglow:#7C6AF720;--pborder:#7C6AF730;
+      --text:#F5F5F7;--sub:#8B8B94;--muted:#444;
+      --orange:#FF6B35;--green:#00C853;--yellow:#E8B400;
+    }
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;overflow-x:hidden}
+
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:18px 40px;background:rgba(10,10,18,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+    .nav-logo{display:flex;align-items:center;gap:10px}
+    .nav-logo img{width:32px;height:32px;object-fit:contain}
+    .nav-logo-text{font-size:18px;font-weight:800;color:var(--text);letter-spacing:3px}
+    .nav-cta{background:var(--purple);color:#fff;border:none;border-radius:10px;padding:10px 22px;font-size:14px;font-weight:700;cursor:pointer;text-decoration:none;transition:opacity .2s}
+    .nav-cta:hover{opacity:.85}
+
+    .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 24px 80px;position:relative;overflow:hidden}
+    .hero-glow{position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,#7C6AF712 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+    .badge{display:inline-flex;align-items:center;gap:8px;background:var(--pglow);border:1px solid var(--pborder);border-radius:20px;padding:8px 16px;font-size:11px;font-weight:700;color:var(--purple);letter-spacing:2px;margin-bottom:28px;animation:fadeUp .5s ease both}
+    .badge-dot{width:6px;height:6px;border-radius:3px;background:var(--purple);animation:blink 2s infinite}
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+    h1{font-size:clamp(38px,8vw,80px);font-weight:800;line-height:1.05;color:var(--text);margin-bottom:4px;animation:fadeUp .5s ease .08s both}
+    h1 em{color:var(--purple);font-style:normal}
+    .hero-sub-title{font-size:clamp(38px,8vw,80px);font-weight:800;line-height:1.05;color:var(--sub);margin-bottom:32px;animation:fadeUp .5s ease .12s both}
+    .hero-sub{font-size:clamp(15px,2vw,19px);color:var(--sub);max-width:460px;line-height:1.65;margin-bottom:48px;animation:fadeUp .5s ease .16s both}
+
+    .form-wrap{width:100%;max-width:520px;animation:fadeUp .5s ease .22s both}
+.form-card{
+background:linear-gradient(180deg,rgba(18,18,24,.96),rgba(10,10,16,.98));
+border:1px solid rgba(124,106,247,.14);
+border-radius:28px;
+overflow:hidden;
+box-shadow:0 24px 80px rgba(0,0,0,.45),0 0 120px rgba(124,106,247,.08)}
+
+    .form-title{font-size:16px;font-weight:700;color:var(--text);margin-bottom:4px}
+    .form-sub{font-size:13px;color:var(--muted);margin-bottom:4px;line-height:1.5}
+    .form-note{font-size:12px;color:var(--muted);line-height:1.5}
+
+    /* Override Tally iframe styles to match theme */
+    .tally-wrap{padding:0 18px 18px}.tally-wrap iframe{background:transparent!important;color-scheme:dark;border-radius:18px}
+
+    .proof{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:28px;animation:fadeUp .5s ease .28s both}
+    .proof-avs{display:flex}
+    .pav{width:30px;height:30px;border-radius:50%;border:2px solid var(--bg);margin-left:-8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff}
+    .pav:first-child{margin-left:0}
+    .proof-text{font-size:13px;color:var(--sub)}
+    .proof-text strong{color:var(--text)}
+
+    .divider{height:1px;background:var(--border);max-width:1100px;margin:0 auto}
+
+    .section{padding:88px 24px;max-width:1100px;margin:0 auto}
+    .sec-label{font-size:10px;font-weight:700;color:var(--purple);letter-spacing:3px;margin-bottom:12px;text-align:center}
+    .sec-title{font-size:clamp(26px,5vw,46px);font-weight:800;color:var(--text);text-align:center;line-height:1.15;margin-bottom:12px}
+    .sec-sub{font-size:16px;color:var(--sub);text-align:center;max-width:480px;margin:0 auto 56px;line-height:1.65}
+
+    .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    @media(max-width:900px){.feat-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:580px){.feat-grid{grid-template-columns:1fr}}
+    .feat-card{background:var(--bg2);border:1px solid var(--border);border-radius:18px;padding:28px 24px;cursor:pointer;transition:border-color .2s,transform .2s,background .2s;user-select:none}
+    .feat-card:hover{border-color:var(--pborder);background:#7C6AF706;transform:translateY(-2px)}
+    .feat-card:active{transform:scale(.98)}
+    .fc-icon{font-size:32px;margin-bottom:16px}
+    .fc-title{font-size:16px;font-weight:700;color:var(--text);margin-bottom:8px}
+    .fc-desc{font-size:13px;color:var(--sub);line-height:1.6;margin-bottom:16px}
+    .fc-cta{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--purple)}
+    .fc-arrow{transition:transform .2s;display:inline-block}
+    .feat-card:hover .fc-arrow{transform:translateX(4px)}
+
+    .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:1000;display:none;align-items:center;justify-content:center;padding:24px;backdrop-filter:blur(8px)}
+    .modal-overlay.open{display:flex}
+    .modal{background:var(--bg2);border:1px solid var(--border);border-radius:24px;max-width:880px;width:100%;max-height:90vh;overflow:hidden;display:flex;flex-direction:column;animation:modalIn .25s ease}
+    @keyframes modalIn{from{opacity:0;transform:scale(.96)translateY(12px)}to{opacity:1;transform:scale(1)translateY(0)}}
+    .modal-head{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--border);flex-shrink:0}
+    .modal-head-title{font-size:16px;font-weight:700;color:var(--text)}
+    .modal-close{width:32px;height:32px;border-radius:10px;background:var(--bg3);border:1px solid var(--border);color:var(--sub);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:color .2s;line-height:1}
+    .modal-close:hover{color:var(--text)}
+    .modal-body{display:flex;overflow:hidden;flex:1}
+    .modal-info{flex:1;padding:32px;overflow-y:auto}
+    .mi-label{font-size:10px;font-weight:700;color:var(--purple);letter-spacing:2px;margin-bottom:12px}
+    .mi-title{font-size:26px;font-weight:800;color:var(--text);margin-bottom:12px;line-height:1.2}
+    .mi-desc{font-size:14px;color:var(--sub);line-height:1.7;margin-bottom:24px}
+    .mi-bullets{display:flex;flex-direction:column;gap:12px}
+    .mi-bullet{display:flex;align-items:flex-start;gap:12px}
+    .mi-dot{width:22px;height:22px;border-radius:6px;background:var(--pglow);border:1px solid var(--pborder);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;margin-top:1px}
+    .mi-text{font-size:14px;color:var(--sub);line-height:1.5}
+    .mi-text strong{color:var(--text)}
+    .modal-phone-wrap{width:260px;flex-shrink:0;background:var(--bg3);border-left:1px solid var(--border);display:flex;align-items:center;justify-content:center;padding:24px}
+    .phone-frame{width:200px;background:#080810;border-radius:36px;border:2px solid #2a2a2a;overflow:hidden;box-shadow:0 0 60px rgba(124,106,247,.15)}
+    .phone-notch{height:24px;background:#080810;display:flex;align-items:center;justify-content:center}
+    .phone-pill{width:60px;height:6px;background:#1a1a1a;border-radius:3px}
+    .ps{background:#0a0a12;padding:14px 12px;min-height:380px}
+
+    .steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    @media(max-width:640px){.steps-grid{grid-template-columns:1fr}}
+    .step-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:28px 22px}
+    .step-num{width:36px;height:36px;border-radius:10px;background:var(--pglow);border:1px solid var(--pborder);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:var(--purple);margin-bottom:16px}
+    .step-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:8px}
+    .step-text{font-size:13px;color:var(--sub);line-height:1.6}
+
+    .bottom-cta{padding:80px 24px;text-align:center}
+    .bc-title{font-size:clamp(26px,5vw,48px);font-weight:800;color:var(--text);line-height:1.15;margin-bottom:14px}
+    .bc-sub{font-size:16px;color:var(--sub);margin-bottom:32px;line-height:1.6}
+    .bc-btn{display:inline-block;background:var(--purple);color:#fff;border-radius:14px;padding:18px 44px;font-size:16px;font-weight:700;text-decoration:none;transition:opacity .2s}
+    .bc-btn:hover{opacity:.85}
+
+    .footer-wrap{border-top:1px solid var(--border);padding:32px 40px}
+    footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;max-width:1100px;margin:0 auto}
+    .footer-logo{display:flex;align-items:center;gap:8px}
+    .footer-logo img{width:24px;height:24px;object-fit:contain}
+    .footer-logo-text{font-size:15px;font-weight:800;color:var(--text);letter-spacing:3px}
+    .footer-links{display:flex;gap:24px;flex-wrap:wrap}
+    .footer-links a{font-size:13px;color:var(--muted);text-decoration:none;transition:color .2s}
+    .footer-links a:hover{color:var(--text)}
+    .footer-copy{font-size:12px;color:var(--muted)}
+
+    @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+    @media(max-width:640px){
+      nav{padding:16px 20px}
+      .hero{padding:100px 20px 60px}
+      .section{padding:64px 20px}
+      .modal-phone-wrap{display:none}
+      .footer-wrap{padding:24px 20px}
+      footer{justify-content:center;text-align:center}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">
+    <img src="https://raw.githubusercontent.com/sanskarbohara/skar-legal/main/Skar%20Logo%20without%20text.png" alt="Skar" />
+    <span class="nav-logo-text">skar</span>
+  </div>
+  <a href="#waitlist" class="nav-cta">Join waitlist</a>
+</nav>
+
+<section class="hero" id="top">
+  <div class="hero-glow"></div>
+  <div class="badge"><div class="badge-dot"></div>EARLY ACCESS · LIMITED SPOTS</div>
+  <h1>Your phone<br/>wins every night.</h1>
+  <div class="hero-sub-title"><span style="color:#7C6AF7">lock in.</span></div>
+  <p class="hero-sub">Skar locks distractions at bedtime, tracks your sleep, and helps you build mornings you actually show up for.</p>
+
+  <div style="font-size:11px;letter-spacing:2px;color:#666;margin-bottom:18px;text-transform:uppercase">Lock apps • Sleep • Own mornings</div><div class="form-wrap" id="waitlist">
+    <div class="form-card">
+      <div style="padding:24px 24px 0">
+        <div class="form-title">lock in 🔒</div>
+        <div class="form-sub" style="margin-bottom:0">Get access before public launch. We’ll notify you before launch.</div>
+      </div>
+      <div class="tally-wrap">
+        <iframe
+          data-tally-src="https://tally.so/embed/VLNe2E?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1&theme=dark"
+          loading="lazy"
+          width="100%"
+          height="320"
+          frameborder="0"
+          marginheight="0"
+          marginwidth="0"
+          title="Skar Waitlist"
+          style="display:block"
+        ></iframe>
+      </div>
+      <p class="form-note" style="padding:0 24px 20px;text-align:center">No spam. No noise. We’ll notify you when it’s time.</p>
+    </div>
+  </div>
+
+  
+<div class="proof">
+<div class="proof-text" style="text-transform:uppercase;letter-spacing:2px">
+early access<br/>limited spots
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<section class="section">
+  <div class="sec-label">FEATURES</div>
+  <h2 class="sec-title">Everything your sleep<br/>was missing.</h2>
+  <p class="sec-sub">Tap any feature to see a preview of the actual app.</p>
+  <div class="feat-grid">
+    <div class="feat-card" onclick="openModal('lockdown')">
+      <div class="fc-icon">🔒</div>
+      <div class="fc-title">App lockdown at bedtime</div>
+      <div class="fc-desc">Clock in at your target time. Skar instantly blocks Instagram, YouTube, and every other distraction. Your phone becomes a boring brick until morning.</div>
+      <div class="fc-cta">See how it works <span class="fc-arrow"></span></div>
+    </div>
+    <div class="feat-card" onclick="openModal('score')">
+      <div class="fc-icon">🏆</div>
+      <div class="fc-title">Lock score and streaks</div>
+      <div class="fc-desc">Every night you lock in earns you a score out of 100. Build streaks, compete on your city leaderboard, and watch your discipline compound.</div>
+      <div class="fc-cta">See your score <span class="fc-arrow"></span></div>
+    </div>
+    <div class="feat-card" onclick="openModal('city')">
+      <div class="fc-icon">🏙️</div>
+      <div class="fc-title">City journey</div>
+      <div class="fc-desc">Every night you lock in unlocks a real location in your city — from Gateway of India to Bade Miyan. Sleep your way across Mumbai, Delhi, Bengaluru.</div>
+      <div class="fc-cta">Explore the map <span class="fc-arrow"></span></div>
+    </div>
+    <div class="feat-card" onclick="openModal('squad')">
+      <div class="fc-icon">👥</div>
+      <div class="fc-title">Squad and paired lockdown</div>
+      <div class="fc-desc">Lock in with a friend every night for 30 days and you both earn the BFF badge. Real accountability, live status, shared streak.</div>
+      <div class="fc-cta">Lock in together <span class="fc-arrow"></span></div>
+    </div>
+    <div class="feat-card" onclick="openModal('genre')">
+      <div class="fc-icon">🎭</div>
+      <div class="fc-title">Genre and chronotype</div>
+      <div class="fc-desc">Are you Bollywood, Anime, Cricket, MCU, Pop or Comedy? Your genre shapes every word in the app. Your chronotype sets your optimal sleep window.</div>
+      <div class="fc-cta">Find your type <span class="fc-arrow"></span></div>
+    </div>
+    <div class="feat-card" onclick="openModal('confessions')">
+      <div class="fc-icon">🤫</div>
+      <div class="fc-title">Confessions feed</div>
+      <div class="fc-desc">Break out of lockdown? Post an anonymous confession. Someone in your city felt the same thing last night. Honest. Real. No judgment.</div>
+      <div class="fc-cta">Read confessions <span class="fc-arrow"></span></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="section">
+  <div class="sec-label">HOW IT WORKS</div>
+  <h2 class="sec-title">Three steps.<br/>Every night.</h2>
+  <p class="sec-sub">The whole loop takes 2 minutes to start and builds the habit that changes everything.</p>
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-num">1</div>
+      <div class="step-title">Clock in at your target time</div>
+      <div class="step-text">Tap lock in. Skar blocks your apps, starts tracking your sleep, and sets your smart alarm for the optimal wake time.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">2</div>
+      <div class="step-title">Wake up to your smart alarm</div>
+      <div class="step-text">Your alarm fires at the lightest point in your sleep cycle — calculated from 90-minute sleep stages so you do not feel groggy.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">3</div>
+      <div class="step-title">Complete the morning ritual</div>
+      <div class="step-text">Water. 10 squats. Step into sunlight. Three steps and Skar unlocks, calculates your score, and updates your streak.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="bottom-cta">
+  <h2 class="bc-title">Your next 30 days<br/>start tonight.</h2>
+  <p class="bc-sub">lock in 🔒. We are launching soon and spots are limited.</p>
+  <a href="#waitlist" class="bc-btn">Lock in my spot </a>
+</section>
+
+<div class="footer-wrap">
+  <footer>
+    <div class="footer-logo">
+      <img src="https://raw.githubusercontent.com/sanskarbohara/skar-legal/main/Skar%20Logo%20without%20text.png" alt="Skar" />
+      <span class="footer-logo-text">skar</span>
+    </div>
+    <div class="footer-links">
+      <a href="https://sanskarbohara.github.io/skar-legal/privacy.html" target="_blank">Privacy Policy</a>
+      <a href="https://sanskarbohara.github.io/skar-legal/terms.html" target="_blank">Terms</a>
+      <a href="https://instagram.com/skarapp" target="_blank">Instagram</a>
+    </div>
+    <div class="footer-copy">© 2026 skar<br/>lock in.</div>
+  </footer>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeOutside(event)">
+  <div class="modal" id="modal">
+    <div class="modal-head">
+      <div class="modal-head-title" id="mTitle"></div>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-info">
+        <div class="mi-label" id="mLabel"></div>
+        <div class="mi-title" id="mInfoTitle"></div>
+        <div class="mi-desc" id="mDesc"></div>
+        <div class="mi-bullets" id="mBullets"></div>
+      </div>
+      <div class="modal-phone-wrap">
+        <div class="phone-frame">
+          <div class="phone-notch"><div class="phone-pill"></div></div>
+          <div id="phoneScreen"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var features = {
+  lockdown: {
+    label: 'APP LOCKDOWN',
+    title: 'Your phone, locked.<br/>At bedtime. Every night.',
+    desc: 'The moment you tap clock in, Skar activates Android Accessibility Services to block every app you chose. Want to break out? You have to wait 13 seconds, post an anonymous confession, and watch your streak reset.',
+    bullets: [
+      {icon:'🔒', text:'<strong>Instant block</strong> — apps blocked the moment you clock in'},
+      {icon:'⏱️', text:'<strong>Friction to break out</strong> — 13-second countdown + confession + streak reset'},
+      {icon:'📱', text:'<strong>You choose what is blocked</strong> — Instagram, YouTube, games, anything'},
+      {icon:'🔓', text:'<strong>Unlocks after morning ritual</strong> — water, squats, sunlight. Then you are free.'}
+    ],
+    phone: '<div class="ps"><div style="font-size:8px;color:#444;letter-spacing:2px;margin-bottom:3px">LOCKED IN</div><div style="text-align:center;padding:16px 0 12px"><img src="https://raw.githubusercontent.com/sanskarbohara/skar-legal/main/Skar%20Logo%20without%20text.png" style="width:40px;height:40px;object-fit:contain;margin-bottom:10px" /><div style="font-size:22px;font-weight:800;color:#F5F5F7;letter-spacing:2px">rest now.</div><div style="font-size:10px;color:#444;letter-spacing:2px;margin-top:4px">skar is watching.</div></div><div style="background:#111;border-radius:12px;padding:12px;border:1px solid #7C6AF730;margin-bottom:8px"><div style="font-size:11px;color:#7C6AF7;font-weight:600;margin-bottom:6px">Smart alarm set</div><div style="font-size:18px;font-weight:800;color:#F5F5F7">6:43 — 7:08 AM</div><div style="font-size:10px;color:#555">7h 30m · optimal window</div></div><div style="background:#111;border-radius:12px;padding:12px;border:1px solid #1a1a1a;margin-bottom:8px"><div style="display:flex;align-items:center;gap:8px"><span style="font-size:16px">📱</span><div><div style="font-size:11px;font-weight:600;color:#F5F5F7">Place phone face down</div><div style="font-size:9px;color:#555">Improves sleep tracking</div></div></div></div><div style="height:3px;background:#1a1a1a;border-radius:2px;margin-top:8px"><div style="height:3px;width:35%;background:#7C6AF7;border-radius:2px"></div></div><div style="font-size:10px;color:#444;margin-top:4px;text-align:center">sleeping...</div></div>'
+  },
+  score: {
+    label: 'LOCK SCORE',
+    title: 'Discipline has<br/>a number now.',
+    desc: 'Every morning Skar calculates your lock score out of 100 based on when you clocked in, how long you slept, and how still you were. Your score builds your streak. Your streak builds your rank.',
+    bullets: [
+      {icon:'📊', text:'<strong>Score out of 100</strong> — clock-in timing, sleep duration, sleep quality'},
+      {icon:'🔥', text:'<strong>Streaks that matter</strong> — 7, 30, 100 days each unlock a badge'},
+      {icon:'🏙️', text:'<strong>City leaderboard</strong> — compete with everyone in Mumbai, Delhi, Bengaluru'},
+      {icon:'📈', text:'<strong>Weekly recap</strong> — animated slides showing your week in sleep'}
+    ],
+    phone: '<div class="ps"><div style="font-size:8px;color:#444;letter-spacing:2px;margin-bottom:3px">YOUR BACKSTAGE</div><div style="font-size:20px;font-weight:800;color:#F5F5F7;margin-bottom:10px">Sanskar</div><div style="background:#111;border-radius:12px;padding:12px;border:1px solid #1a1a1a;margin-bottom:8px"><div style="display:flex;align-items:center;gap:10px"><div style="width:52px;height:52px;border-radius:26px;border:3px solid #7C6AF7;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:20px;font-weight:800;color:#F5F5F7">84</span></div><div style="flex:1;display:flex;flex-direction:column;gap:6px"><div><div style="font-size:13px;font-weight:700;color:#F5F5F7">7h 20m</div><div style="font-size:8px;color:#444;letter-spacing:1px">SLEPT</div></div><div style="height:1px;background:#1a1a1a"></div><div><div style="font-size:13px;font-weight:700;color:#7C6AF7">12 days</div><div style="font-size:8px;color:#444;letter-spacing:1px">STREAK</div></div></div></div></div><div style="background:#111;border-radius:12px;padding:12px;border:1px solid #1a1a1a"><div style="font-size:9px;color:#444;letter-spacing:2px;margin-bottom:8px">THIS WEEK</div><div style="display:flex;justify-content:space-between"><div style="text-align:center"><div style="width:26px;height:26px;border-radius:13px;border:2px solid #7C6AF7;background:#7C6AF715;display:flex;align-items:center;justify-content:center;margin:0 auto 2px"><span style="font-size:9px;color:#F5F5F7;font-weight:600">M</span></div><div style="font-size:8px;color:#7C6AF7">72</div></div><div style="text-align:center"><div style="width:26px;height:26px;border-radius:13px;border:2px solid #00C853;background:#00C85315;display:flex;align-items:center;justify-content:center;margin:0 auto 2px"><span style="font-size:9px;color:#F5F5F7;font-weight:600">T</span></div><div style="font-size:8px;color:#00C853">88</div></div><div style="text-align:center"><div style="width:26px;height:26px;border-radius:13px;border:2px solid #7C6AF7;background:#7C6AF715;display:flex;align-items:center;justify-content:center;margin:0 auto 2px"><span style="font-size:9px;color:#F5F5F7;font-weight:600">W</span></div><div style="font-size:8px;color:#7C6AF7">65</div></div><div style="text-align:center"><div style="width:26px;height:26px;border-radius:13px;border:2px solid #00C853;background:#00C85315;display:flex;align-items:center;justify-content:center;margin:0 auto 2px"><span style="font-size:9px;color:#F5F5F7;font-weight:600">T</span></div><div style="font-size:8px;color:#00C853">91</div></div><div style="text-align:center"><div style="width:26px;height:26px;border-radius:13px;border:2px solid #7C6AF7;background:#7C6AF715;display:flex;align-items:center;justify-content:center;margin:0 auto 2px"><span style="font-size:9px;color:#F5F5F7;font-weight:600">F</span></div><div style="font-size:8px;color:#7C6AF7">79</div></div><div style="text-align:center"><div style="width:26px;height:26px;border-radius:13px;border:2px solid #7C6AF7;background:#7C6AF715;display:flex;align-items:center;justify-content:center;margin:0 auto 2px"><span style="font-size:9px;color:#F5F5F7;font-weight:600">S</span></div><div style="font-size:8px;color:#7C6AF7">84</div></div><div style="text-align:center"><div style="width:26px;height:26px;border-radius:13px;border:2px solid #1a1a1a;background:transparent;display:flex;align-items:center;justify-content:center;margin:0 auto 2px"><span style="font-size:9px;color:#444;font-weight:600">S</span></div><div style="font-size:8px;color:#333"></div></div></div></div></div>'
+  },
+  city: {
+    label: 'CITY JOURNEY',
+    title: 'Sleep your way<br/>across your city.',
+    desc: 'Every night you lock in unlocks a real location in your city — with its history, a surprising fact, and exactly why it matters. Mumbai, Delhi, Bengaluru, Hyderabad, Chennai, Pune.',
+    bullets: [
+      {icon:'🗺️', text:'<strong>Real locations</strong> — Gateway of India, CSMT, Dharavi, Marine Drive and more'},
+      {icon:'🏛️', text:'<strong>5 categories</strong> — landmarks, food, markets, culture, outdoors'},
+      {icon:'📖', text:'<strong>Real facts</strong> — stories about each location you would never Google otherwise'},
+      {icon:'🌆', text:'<strong>Complete your city</strong> — unlock all locations to earn the Urban Legend badge'}
+    ],
+    phone: '<div class="ps"><div style="font-size:8px;color:#444;letter-spacing:2px;margin-bottom:3px">CITY JOURNEY</div><div style="font-size:20px;font-weight:800;color:#F5F5F7;margin-bottom:2px">Mumbai.</div><div style="font-size:10px;color:#555;font-style:italic;margin-bottom:10px">The city that never sleeps. Ironically.</div><div style="background:#111;border-radius:12px;padding:12px;border:1px solid #1a1a1a;margin-bottom:8px"><div style="display:flex;justify-content:space-between;margin-bottom:8px"><div style="text-align:center"><div style="font-size:18px;font-weight:800;color:#F5F5F7">12</div><div style="font-size:8px;color:#444">UNLOCKED</div></div><div style="text-align:center"><div style="font-size:18px;font-weight:800;color:#F5F5F7">14</div><div style="font-size:8px;color:#444">REMAINING</div></div><div style="text-align:center"><div style="font-size:18px;font-weight:800;color:#7C6AF7">46%</div><div style="font-size:8px;color:#444">DONE</div></div></div><div style="height:4px;background:#1a1a1a;border-radius:2px"><div style="height:4px;width:46%;background:#7C6AF7;border-radius:2px"></div></div></div><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;background:#111;border-radius:10px;padding:10px;border:1px solid #1a1a1a"><div style="width:28px;height:28px;border-radius:14px;background:#7C6AF7;display:flex;align-items:center;justify-content:center;font-size:14px">🏛️</div><div style="flex:1"><div style="font-size:11px;font-weight:600;color:#F5F5F7">Gateway of India</div><div style="font-size:9px;color:#555">Night 1 · Unlocked</div></div><div style="background:#7C6AF720;border:1px solid #7C6AF730;border-radius:6px;padding:3px 8px;font-size:9px;color:#7C6AF7">✓</div></div><div style="display:flex;align-items:center;gap:8px;background:#111;border-radius:10px;padding:10px;border:1px solid #1a1a1a;opacity:.5"><div style="width:28px;height:28px;border-radius:14px;background:#1a1a1a;border:1px solid #2a2a2a;display:flex;align-items:center;justify-content:center;color:#444">🔒</div><div style="flex:1"><div style="font-size:11px;color:#444">Next location</div><div style="font-size:9px;color:#333">Lock in tonight to unlock</div></div></div></div>'
+  },
+  squad: {
+    label: 'SQUAD',
+    title: 'Lock in together.<br/>Or get left behind.',
+    desc: 'Add friends to your squad, see who locked in last night, and pair up for 30 consecutive nights to both earn the BFF badge. Real-time status. Real accountability.',
+    bullets: [
+      {icon:'👥', text:'<strong>Squad leaderboard</strong> — see your friends scores and streaks live'},
+      {icon:'🔗', text:'<strong>Paired lockdown</strong> — 30 nights together unlocks the BFF badge for both'},
+      {icon:'📍', text:'<strong>Live status</strong> — see exactly when your partner locks in tonight'},
+      {icon:'🏆', text:'<strong>City leaderboard</strong> — compete with everyone in your city too'}
+    ],
+    phone: '<div class="ps"><div style="font-size:8px;color:#444;letter-spacing:2px;margin-bottom:8px">PAIRED LOCKDOWN</div><div style="background:#111;border-radius:12px;padding:12px;border:1px solid #7C6AF730;margin-bottom:8px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><div style="font-size:8px;color:#444;letter-spacing:1px">PAIRED PARTNER</div><div style="background:#00C85315;border:1px solid #00C85330;border-radius:8px;padding:3px 8px;font-size:9px;color:#00C853;font-weight:600">active</div></div><div style="display:flex;justify-content:space-around;align-items:center"><div style="text-align:center"><div style="width:44px;height:44px;border-radius:22px;background:#7C6AF7;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#fff;margin:0 auto 6px">S</div><div style="font-size:11px;font-weight:600;color:#F5F5F7">You</div><div style="background:#00C85320;border:1px solid #00C85340;border-radius:6px;padding:3px 8px;font-size:9px;color:#00C853;margin-top:4px">Locked in</div></div><div style="text-align:center"><div style="font-size:20px">🔒</div><div style="font-size:9px;color:#555;margin-top:2px">12 nights</div></div><div style="text-align:center"><div style="width:44px;height:44px;border-radius:22px;background:#FF6B35;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#fff;margin:0 auto 6px">R</div><div style="font-size:11px;font-weight:600;color:#F5F5F7">Rahul</div><div style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:6px;padding:3px 8px;font-size:9px;color:#555;margin-top:4px">not yet</div></div></div><div style="margin-top:10px"><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:9px;color:#7C6AF7;font-weight:600">BFF Badge</span><span style="font-size:9px;color:#555">12/30</span></div><div style="height:4px;background:#1a1a1a;border-radius:2px"><div style="height:4px;width:40%;background:#7C6AF7;border-radius:2px"></div></div></div></div><div style="font-size:9px;color:#444;letter-spacing:2px;margin-bottom:8px">SQUAD</div><div style="background:#111;border-radius:10px;padding:10px;border:1px solid #1a1a1a"><div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #1a1a1a"><div style="width:26px;height:26px;border-radius:13px;background:#FF6B35;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff">R</div><div style="flex:1"><div style="font-size:11px;font-weight:600;color:#F5F5F7">Rahul</div><div style="font-size:9px;color:#555">locked in</div></div><div style="font-size:14px;font-weight:800;color:#F5F5F7">88</div></div><div style="display:flex;align-items:center;gap:8px;padding:6px 0"><div style="width:26px;height:26px;border-radius:13px;background:#00C853;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff">P</div><div style="flex:1"><div style="font-size:11px;font-weight:600;color:#F5F5F7">Priya</div><div style="font-size:9px;color:#555">locked in</div></div><div style="font-size:14px;font-weight:800;color:#F5F5F7">76</div></div></div></div>'
+  },
+  genre: {
+    label: 'PERSONALIZATION',
+    title: 'Your sleep type,<br/>your character.',
+    desc: 'Pick your genre — Bollywood, Anime, Cricket, MCU, Pop, or Comedy. Answer 4 questions. Skar figures out your chronotype and sets your entire sleep schedule. Every word in the app matches your vibe.',
+    bullets: [
+      {icon:'🎭', text:'<strong>6 genres</strong> — Bollywood, Anime, Cricket, MCU, Pop, Comedy'},
+      {icon:'🐺', text:'<strong>4 chronotypes</strong> — wolf, bear, lion, dolphin — sets your optimal sleep window'},
+      {icon:'⏰', text:'<strong>Science-based schedule</strong> — calculated from your chronotype'},
+      {icon:'🔄', text:'<strong>Change every 7 days</strong> — locked in so you actually commit'}
+    ],
+    phone: '<div class="ps"><div style="font-size:8px;color:#444;letter-spacing:2px;margin-bottom:8px">YOUR GENRE</div><div style="display:flex;align-items:center;gap:8px;background:#7C6AF720;border:1px solid #7C6AF730;border-radius:12px;padding:10px 12px;margin-bottom:10px"><div style="font-size:22px">🎬</div><div style="flex:1"><div style="font-size:12px;font-weight:700;color:#7C6AF7">Bollywood</div><div style="font-size:9px;color:#555">Change unlocks in 5d</div></div><div style="background:#7C6AF720;border-radius:6px;padding:3px 8px;font-size:9px;color:#7C6AF7;font-weight:700">ACTIVE</div></div><div style="background:#111;border-radius:12px;padding:12px;border:1px solid #7C6AF720;margin-bottom:8px"><div style="font-size:9px;color:#444;letter-spacing:2px;margin-bottom:6px">YOU SLEEP LIKE</div><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><div style="font-size:22px">🎬</div><div style="font-size:16px;font-weight:800;color:#F5F5F7">Raj</div></div><div style="font-size:11px;color:#8B8B94;line-height:1.5;margin-bottom:8px">You flow with the day naturally. Consistent, reliable, always showing up.</div><div style="font-size:10px;color:#7C6AF7;font-weight:600">11:00 PM – 7:00 AM</div></div><div style="display:flex;gap:8px"><div style="flex:1;background:#111;border-radius:10px;padding:10px;border:1px solid #1a1a1a;text-align:center"><div style="font-size:18px;font-weight:800;color:#F5F5F7">84</div><div style="font-size:8px;color:#444">SCORE</div></div><div style="flex:1;background:#111;border-radius:10px;padding:10px;border:1px solid #1a1a1a;text-align:center"><div style="font-size:18px;font-weight:800;color:#7C6AF7">12d</div><div style="font-size:8px;color:#444">STREAK</div></div><div style="flex:1;background:#111;border-radius:10px;padding:10px;border:1px solid #1a1a1a;text-align:center"><div style="font-size:18px;font-weight:800;color:#F5F5F7">91</div><div style="font-size:8px;color:#444">BEST</div></div></div></div>'
+  },
+  confessions: {
+    label: 'CONFESSIONS',
+    title: 'Break out last night?<br/>You are not alone.',
+    desc: 'When you break out of lockdown, Skar asks you to post an anonymous confession. What actually happened? Someone in your city felt the same thing last night.',
+    bullets: [
+      {icon:'🤫', text:'<strong>Completely anonymous</strong> — posted as "anonymous · Mumbai", never linked to your name'},
+      {icon:'❤️', text:'<strong>I felt this</strong> — react to confessions that hit different'},
+      {icon:'🌙', text:'<strong>Real reasons</strong> — anxiety, one more reel, could not sleep. All of it.'},
+      {icon:'🏙️', text:'<strong>City-filtered</strong> — confessions from people in your city first'}
+    ],
+    phone: '<div class="ps"><div style="font-size:8px;color:#444;letter-spacing:2px;margin-bottom:8px">CONFESSIONS</div><div style="background:#111;border-radius:10px;padding:10px;border:1px solid #1a1a1a;margin-bottom:8px"><div style="font-size:10px;color:#8B8B94;line-height:1.5;margin-bottom:4px">Anonymous. Real. From people who broke out last night.</div></div><div style="background:#111;border-radius:10px;padding:10px;border:1px solid #1a1a1a;margin-bottom:6px"><div style="font-size:9px;color:#7C6AF7;margin-bottom:6px">Mumbai · 2h ago</div><div style="font-size:11px;color:#F5F5F7;line-height:1.5;font-style:italic">"I just wanted to check one reel. It turned into 2 hours."</div><div style="margin-top:8px"><div style="display:inline-flex;align-items:center;gap:4px;background:#1a1a1a;border-radius:12px;padding:4px 10px;border:1px solid #2a2a2a;font-size:10px;color:#555">👆 felt this · 47</div></div></div><div style="background:#111;border-radius:10px;padding:10px;border:1px solid #1a1a1a;margin-bottom:6px"><div style="font-size:9px;color:#7C6AF7;margin-bottom:6px">Delhi · 4h ago</div><div style="font-size:11px;color:#F5F5F7;line-height:1.5;font-style:italic">"Anxiety hit hard out of nowhere. Lay there for an hour."</div><div style="margin-top:8px"><div style="display:inline-flex;align-items:center;gap:4px;background:#1a1a1a;border-radius:12px;padding:4px 10px;border:1px solid #2a2a2a;font-size:10px;color:#555">👆 felt this · 89</div></div></div></div>'
+  }
+};
+
+function openModal(key) {
+  var f = features[key];
+  document.getElementById('mTitle').textContent = f.label;
+  document.getElementById('mLabel').textContent = f.label;
+  document.getElementById('mInfoTitle').innerHTML = f.title;
+  document.getElementById('mDesc').textContent = f.desc;
+  var html = '';
+  for (var i = 0; i < f.bullets.length; i++) {
+    html += '<div class="mi-bullet"><div class="mi-dot">' + f.bullets[i].icon + '</div><div class="mi-text">' + f.bullets[i].text + '</div></div>';
+  }
+  document.getElementById('mBullets').innerHTML = html;
+  document.getElementById('phoneScreen').innerHTML = f.phone;
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function closeOutside(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModal();
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeModal();
+});
+
+document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+  a.addEventListener('click', function(e) {
+    e.preventDefault();
+    var t = document.querySelector(this.getAttribute('href'));
+    if (t) t.scrollIntoView({behavior:'smooth'});
+  });
+});
+</script>
+
+<script src="https://tally.so/widgets/embed.js" async></script>
+
+</body>
+</html>
