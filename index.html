@@ -46,16 +46,16 @@ transition:left 0.08s,top 0.08s;display:none}
 
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;
-padding:14px 48px;background:rgba(4,4,8,0.9);backdrop-filter:blur(24px) saturate(1.5);
+padding:16px 48px;background:rgba(4,4,8,0.9);backdrop-filter:blur(24px) saturate(1.5);
 border-bottom:1px solid rgba(124,92,246,0.04);transition:transform 0.35s,padding 0.3s}
 .n-brand{display:flex;align-items:center;gap:8px}
-.n-brand img{width:26px;height:26px}
-.n-brand span{font-family:'Plus Jakarta Sans';font-size:14px;font-weight:800;letter-spacing:0.5px}
-.n-right{display:flex;align-items:center;gap:20px}
-.n-link{font-size:11px;color:#4a4560;transition:color 0.2s;letter-spacing:0.04em}
+.n-brand img{width:30px;height:30px}
+.n-brand span{font-family:'Plus Jakarta Sans';font-size:16px;font-weight:800;letter-spacing:0.5px}
+.n-right{display:flex;align-items:center;gap:24px}
+.n-link{font-size:13px;color:#5a5570;transition:color 0.2s;letter-spacing:0.04em}
 .n-link:hover{color:#ccc8e0}
-.n-cta{padding:7px 16px;background:#7c5cf6;color:#fff;font-family:'Plus Jakarta Sans';font-size:10px;font-weight:700;
-border-radius:5px;transition:all 0.3s;letter-spacing:0.02em}
+.n-cta{padding:9px 20px;background:#7c5cf6;color:#fff;font-family:'Plus Jakarta Sans';font-size:12px;font-weight:700;
+border-radius:6px;transition:all 0.3s;letter-spacing:0.02em}
 .n-cta:hover{background:#6d4de0;transform:translateY(-1px);box-shadow:0 4px 18px rgba(124,92,246,0.25)}
 
 /* HERO */
@@ -71,9 +71,9 @@ animation:orb 8s ease-in-out infinite}
 filter:drop-shadow(0 0 20px rgba(124,92,246,0.2))}
 @keyframes logoFloat{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-10px) rotate(2deg)}}
 
-.hero-tag{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;
+.hero-tag{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;
 border:1px solid rgba(124,92,246,0.12);border-radius:100px;margin-bottom:28px;
-font-family:'JetBrains Mono';font-size:9px;color:#7c5cf6;letter-spacing:0.12em;text-transform:uppercase;
+font-family:'JetBrains Mono';font-size:11px;color:#7c5cf6;letter-spacing:0.1em;text-transform:uppercase;
 background:rgba(124,92,246,0.03);position:relative;overflow:hidden}
 .hero-tag::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;
 background:linear-gradient(90deg,transparent,rgba(124,92,246,0.08),transparent);
@@ -83,40 +83,40 @@ animation:shimmer 3s ease-in-out infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
 
 .hero h1{font-family:'Plus Jakarta Sans';font-size:clamp(2.6rem,6.5vw,5rem);font-weight:800;
-line-height:1.02;letter-spacing:-0.04em;margin-bottom:6px;max-width:650px}
+line-height:1.02;letter-spacing:-0.04em;margin-bottom:6px;max-width:780px}
 .hero h1 .glow{background:linear-gradient(135deg,#7c5cf6,#a78bfa,#7c5cf6);background-size:200% 200%;
 -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:grad 6s ease infinite}
 @keyframes grad{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
 .hero-lock{font-family:'Plus Jakarta Sans';font-size:clamp(2.6rem,6.5vw,5rem);font-weight:800;
 letter-spacing:-0.04em;color:#2a2840;margin-bottom:24px}
-.hero-sub{font-size:15px;color:#4a4560;max-width:420px;line-height:1.75;margin-bottom:40px;font-weight:300}
+.hero-sub{font-size:17px;color:#4a4560;max-width:520px;line-height:1.75;margin-bottom:40px;font-weight:300}
 .hero-sub strong{color:#ccc8e0;font-weight:500}
 
 /* HERO CTA */
-.hero-cta{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;
-background:#7c5cf6;color:#fff;font-family:'Plus Jakarta Sans';font-size:13px;font-weight:700;
+.hero-cta{display:inline-flex;align-items:center;gap:8px;padding:15px 36px;
+background:#7c5cf6;color:#fff;font-family:'Plus Jakarta Sans';font-size:15px;font-weight:700;
 border-radius:8px;transition:all 0.3s;position:relative}
 .hero-cta::before{content:'';position:absolute;inset:-2px;border-radius:10px;
 background:linear-gradient(135deg,#7c5cf6,#a78bfa);z-index:-1;filter:blur(16px);opacity:0.2;transition:opacity 0.3s}
 .hero-cta:hover{transform:translateY(-2px)}
 .hero-cta:hover::before{opacity:0.45}
-.hero-note{margin-top:14px;font-family:'JetBrains Mono';font-size:9px;color:#2a2840;letter-spacing:0.08em}
+.hero-note{margin-top:16px;font-family:'JetBrains Mono';font-size:10px;color:#2a2840;letter-spacing:0.08em}
 
 /* LIVE COUNTER */
 .counter-bar{border-top:1px solid rgba(124,92,246,0.04);border-bottom:1px solid rgba(124,92,246,0.04);
 display:grid;grid-template-columns:repeat(3,1fr);position:relative;z-index:1}
-.counter{padding:28px;text-align:center;border-right:1px solid rgba(124,92,246,0.04);transition:background 0.3s}
+.counter{padding:32px 40px;text-align:center;border-right:1px solid rgba(124,92,246,0.04);transition:background 0.3s}
 .counter:last-child{border-right:none}
 .counter:hover{background:rgba(124,92,246,0.02)}
-.counter-val{font-family:'Plus Jakarta Sans';font-size:2rem;font-weight:800;color:#7c5cf6;line-height:1}
-.counter-lbl{font-family:'JetBrains Mono';font-size:9px;color:#3a3850;margin-top:4px;letter-spacing:0.1em;text-transform:uppercase}
+.counter-val{font-family:'Plus Jakarta Sans';font-size:2.4rem;font-weight:800;color:#7c5cf6;line-height:1}
+.counter-lbl{font-family:'JetBrains Mono';font-size:10px;color:#3a3850;margin-top:4px;letter-spacing:0.1em;text-transform:uppercase}
 
 /* SECTIONS */
-section{padding:100px 48px;position:relative;z-index:1}
-.inner{max-width:1040px;margin:0 auto}
-.slbl{font-family:'JetBrains Mono';font-size:9px;color:#7c5cf6;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:10px;text-align:center}
-.sh{font-family:'Plus Jakarta Sans';font-size:clamp(1.6rem,3.2vw,2.4rem);font-weight:800;text-align:center;line-height:1.1;letter-spacing:-0.02em;margin-bottom:8px}
-.sd{font-size:13px;color:#3a3850;text-align:center;max-width:400px;margin:0 auto 50px;line-height:1.65;font-weight:300}
+section{padding:80px 48px;position:relative;z-index:1}
+.inner{max-width:1200px;margin:0 auto}
+.slbl{font-family:'JetBrains Mono';font-size:11px;color:#7c5cf6;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:10px;text-align:center}
+.sh{font-family:'Plus Jakarta Sans';font-size:clamp(2rem,3.8vw,2.8rem);font-weight:800;text-align:center;line-height:1.1;letter-spacing:-0.02em;margin-bottom:8px}
+.sd{font-size:15px;color:#3a3850;text-align:center;max-width:500px;margin:0 auto 50px;line-height:1.65;font-weight:300}
 
 /* LINE */
 .ln{height:1px;border:none;margin:0;background:linear-gradient(90deg,transparent,rgba(124,92,246,0.1),transparent)}
@@ -129,7 +129,7 @@ section{padding:100px 48px;position:relative;z-index:1}
   padding:36px;margin-bottom:20px;cursor:pointer;
   transition:box-shadow 0.3s;-webkit-tap-highlight-color:transparent;
   display:grid;grid-template-columns:1.2fr 0.8fr;gap:32px;align-items:center;
-  max-width:900px;margin-left:auto;margin-right:auto;
+  max-width:1100px;margin-left:auto;margin-right:auto;
   backdrop-filter:blur(12px);transform-origin:center top;overflow:hidden;
 }
 .stack-card::before{content:'';position:absolute;inset:-1px;border-radius:15px;
@@ -143,13 +143,13 @@ opacity:0;transition:opacity 0.4s;z-index:-1;pointer-events:none}
 .stack-card:nth-child(4){top:140px;z-index:4}
 .stack-card:nth-child(5){top:160px;z-index:5}
 .stack-card:nth-child(6){top:180px;z-index:6}
-.sc-num{font-family:'JetBrains Mono';font-size:10px;color:rgba(124,92,246,0.4);letter-spacing:0.15em;margin-bottom:10px}
-.sc-title{font-family:'Plus Jakarta Sans';font-size:20px;font-weight:800;margin-bottom:8px;line-height:1.2}
-.sc-desc{font-size:13px;color:#4a4560;line-height:1.65;margin-bottom:16px;font-weight:300}
+.sc-num{font-family:'JetBrains Mono';font-size:11px;color:rgba(124,92,246,0.4);letter-spacing:0.15em;margin-bottom:10px}
+.sc-title{font-family:'Plus Jakarta Sans';font-size:22px;font-weight:800;margin-bottom:8px;line-height:1.2}
+.sc-desc{font-size:14px;color:#4a4560;line-height:1.65;margin-bottom:16px;font-weight:300}
 .sc-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px}
-.sc-tag{padding:3px 9px;border:1px solid rgba(124,92,246,0.08);border-radius:100px;
-font-family:'JetBrains Mono';font-size:8px;color:#4a4560;letter-spacing:0.04em}
-.sc-cta{font-family:'JetBrains Mono';font-size:10px;color:#7c5cf6;letter-spacing:0.04em;
+.sc-tag{padding:4px 11px;border:1px solid rgba(124,92,246,0.08);border-radius:100px;
+font-family:'JetBrains Mono';font-size:10px;color:#5a5570;letter-spacing:0.04em}
+.sc-cta{font-family:'JetBrains Mono';font-size:11px;color:#7c5cf6;letter-spacing:0.04em;
 display:inline-flex;align-items:center;gap:4px}
 .sc-cta em{transition:transform 0.2s;display:inline-block;font-style:normal}
 .stack-card:hover .sc-cta em{transform:translateX(3px)}
@@ -194,15 +194,15 @@ box-shadow:0 40px 100px rgba(0,0,0,0.5),0 0 50px rgba(124,92,246,0.06)}
 .sc{background:rgba(255,255,255,0.01);border:1px solid rgba(124,92,246,0.05);
 border-radius:10px;padding:26px 20px;transition:all 0.3s}
 .sc:hover{border-color:rgba(124,92,246,0.1);transform:translateY(-2px)}
-.sc-n{font-family:'Plus Jakarta Sans';font-size:24px;font-weight:800;color:rgba(124,92,246,0.12);margin-bottom:12px;line-height:1}
-.sc-t{font-family:'Plus Jakarta Sans';font-size:12px;font-weight:700;margin-bottom:5px}
-.sc-d{font-size:11px;color:#3a3850;line-height:1.55;font-weight:300}
+.sc-n{font-family:'Plus Jakarta Sans';font-size:28px;font-weight:800;color:rgba(124,92,246,0.12);margin-bottom:12px;line-height:1}
+.sc-t{font-family:'Plus Jakarta Sans';font-size:14px;font-weight:700;margin-bottom:5px}
+.sc-d{font-size:13px;color:#3a3850;line-height:1.55;font-weight:300}
 
 /* INTERACTIVE DEMO SECTION */
 .demo-section{text-align:center}
 .demo-phone{margin:0 auto;max-width:260px}
 .demo-tabs{display:flex;justify-content:center;gap:6px;margin-bottom:24px}
-.demo-tab{padding:6px 14px;border:1px solid rgba(124,92,246,0.08);border-radius:100px;
+.demo-tab{padding:8px 18px;border:1px solid rgba(124,92,246,0.08);border-radius:100px;
 font-family:'JetBrains Mono';font-size:9px;color:#3a3850;cursor:pointer;transition:all 0.3s;letter-spacing:0.04em;
 position:relative;overflow:hidden}
 .demo-tab::after{content:'';position:absolute;bottom:0;left:50%;width:0;height:1px;
@@ -215,24 +215,24 @@ box-shadow:0 0 15px rgba(124,92,246,0.08)}
 
 /* WAITLIST */
 .wl{text-align:center;padding:80px 24px;position:relative;z-index:1}
-.wl h2{font-family:'Plus Jakarta Sans';font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;letter-spacing:-0.02em;margin-bottom:10px}
-.wl-sub{font-size:13px;color:#3a3850;max-width:380px;margin:0 auto 28px;line-height:1.65;font-weight:300}
-.wl-form{max-width:480px;margin:0 auto;background:rgba(10,10,18,0.6);border:1px solid rgba(124,92,246,0.08);
+.wl h2{font-family:'Plus Jakarta Sans';font-size:clamp(2rem,4.5vw,3rem);font-weight:800;letter-spacing:-0.02em;margin-bottom:10px}
+.wl-sub{font-size:15px;color:#3a3850;max-width:380px;margin:0 auto 28px;line-height:1.65;font-weight:300}
+.wl-form{max-width:540px;margin:0 auto;background:rgba(10,10,18,0.6);border:1px solid rgba(124,92,246,0.08);
 border-radius:14px;overflow:hidden;backdrop-filter:blur(16px);box-shadow:0 20px 60px rgba(0,0,0,0.3);position:relative}
 .wl-form::before{content:'';position:absolute;inset:-1px;border-radius:15px;
 background:linear-gradient(135deg,rgba(124,92,246,0.15),transparent 30%,transparent 70%,rgba(124,92,246,0.08));
 z-index:-1;background-size:300% 300%;animation:form-glow 5s ease infinite}
 @keyframes form-glow{0%{background-position:0% 0%}50%{background-position:100% 100%}100%{background-position:0% 0%}}
 .wl-form-head{padding:18px 20px 0}
-.wl-form-title{font-family:'Plus Jakarta Sans';font-size:13px;font-weight:700}
+.wl-form-title{font-family:'Plus Jakarta Sans';font-size:15px;font-weight:700}
 .tally-wrap{padding:4px 14px 10px}
 .tally-wrap iframe{background:transparent!important;border-radius:10px;display:block}
 .wl-form-note{padding:0 20px 14px;font-family:'JetBrains Mono';font-size:9px;color:#2a2840;text-align:center;letter-spacing:0.04em}
 
 /* BOTTOM CTA */
 .bottom{text-align:center;padding:80px 24px;position:relative;z-index:1}
-.bottom h2{font-family:'Plus Jakarta Sans';font-size:clamp(1.6rem,3.5vw,2.6rem);font-weight:800;letter-spacing:-0.02em;margin-bottom:10px}
-.bottom p{font-size:13px;color:#3a3850;margin-bottom:24px;font-weight:300}
+.bottom h2{font-family:'Plus Jakarta Sans';font-size:clamp(2rem,4vw,3rem);font-weight:800;letter-spacing:-0.02em;margin-bottom:10px}
+.bottom p{font-size:15px;color:#3a3850;margin-bottom:24px;font-weight:300}
 .bottom-btn{display:inline-block;padding:12px 32px;background:#7c5cf6;color:#fff;
 font-family:'Plus Jakarta Sans';font-size:13px;font-weight:700;border-radius:6px;transition:all 0.3s;position:relative}
 .bottom-btn::before{content:'';position:absolute;inset:-2px;border-radius:8px;
@@ -274,10 +274,10 @@ box-shadow:0 0 30px rgba(124,92,246,.04)}
 
 /* FOOTER */
 .footer-w{border-top:1px solid rgba(124,92,246,0.04);padding:24px 48px;position:relative;z-index:1}
-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;max-width:1040px;margin:0 auto}
+footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;max-width:1200px;margin:0 auto}
 .f-brand{display:flex;align-items:center;gap:6px}
 .f-brand img{width:18px;height:18px}
-.f-brand span{font-family:'Plus Jakarta Sans';font-size:12px;font-weight:800;letter-spacing:0.5px}
+.f-brand span{font-family:'Plus Jakarta Sans';font-size:14px;font-weight:800;letter-spacing:0.5px}
 .f-links{display:flex;gap:18px}
 .f-links a{font-size:10px;color:#1a1830;transition:color 0.2s}
 .f-links a:hover{color:#7c5cf6}
@@ -482,7 +482,7 @@ animation:line-sweep 4s ease-in-out infinite}
 <hr class="ln">
 
 <section style="text-align:center;padding:60px 24px;position:relative;z-index:1">
-  <div style="max-width:600px;margin:0 auto;background:rgba(124,92,246,0.03);border:1px solid rgba(124,92,246,0.06);border-radius:14px;padding:36px;position:relative;overflow:hidden">
+  <div style="max-width:800px;margin:0 auto;background:rgba(124,92,246,0.03);border:1px solid rgba(124,92,246,0.06);border-radius:14px;padding:36px;position:relative;overflow:hidden">
     <div style="position:absolute;inset:-1px;border-radius:15px;background:linear-gradient(135deg,rgba(124,92,246,0.12),transparent 30%,transparent 70%,rgba(124,92,246,0.06));z-index:-1;background-size:300% 300%;animation:form-glow 5s ease infinite"></div>
     <div style="font-family:JetBrains Mono;font-size:9px;color:#7c5cf6;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:10px">Free tool</div>
     <div style="font-family:Plus Jakarta Sans;font-size:clamp(18px,3vw,24px);font-weight:800;color:#ccc8e0;margin-bottom:8px;letter-spacing:-0.02em">How broken is your sleep?</div>
