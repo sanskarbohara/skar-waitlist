@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why Skar Exists</title>
+<meta name="description" content="I was the problem user. Doom-scrolling every night. Groggy every morning. So I built the fix.">
+<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAACy0lEQVR42u3XS0hUURzH8e953HJw0IJSkaToIVFEhWjlohbVpojoQfSCWhS0atmmTQS1CYJyUes2WlAgQbTogRRE75Qe9MJejjhpOTpO48x5tJjRIiK6QxMR84e7u5f7Of9zz++cK4Ig8PxDJfnHqgQqgUqgEuhPlEAU/KwOc7Nz7tcQoQAwLoNAIERuvFLK4oAAPP4HhEQIibVZvLUARCZU4rBkTAopxN+ZMiEkUiqsMZhshkCVMbt2NesaT7Nn5X3KJ1bjvYOQIF0oxhoDQG1NPU3zdlBfvZ4KuYDyQNJ+9xCfhl+jdBAapcNN1zfMlKm17N51mEVzNsHQJFJx6OtJ0nbzILdfnUQpjfcu9OcdCiSFxDnL1Ko6jh2/wszp9QzHYTCd5uHri7R3HCE20IlWAQ43NoTigYQUOOPYuOEANZX19PckefummwvnW7jz6ByjJpFfZVmUVPhiL/uxNwRuEqP9cOVqB9c7zjPyJcbcui1Ey2qAz3S9PcfwSBylVGiQUkod+m2Pz13v3z2hKtpIT3cKKQIikQq0iOBMhBWL9tI8dxv3XrZhbDofC6JYIIcQgqHkR251niGTHUCJMoaSH1FKsmTxUmbVzWBKdBZdby4zkOhGKR1q5RcUjEprnHc8f38JqS6xetl+Nq/dT/XkGkiV0xuPER98lu+MC/Vh6wJjEWezzKhazrrmIzQ0LCMalUwsEwymezjVvpNEsg+lNd77UFOmw1Mk1mRpmr2PNQ0tVFZqMkmIpd7x4EUrF6+dYOBzbw7jwie1CPMb5L3AmAzzp21le3Mroz5Nb+IGT2Nn6epuZ3ikPzdKHeC8Hd/5w2yuoUDOgzVZVi08ijWWpx/O0pd4PNY6tJ6Adxbvfb4zuWBURQPljx/W2fFMUlrnEty7XCb8JJ+L1qHvD2BCKDwut3n+wSpolXk83pvSmboEKoFKoP8S9BXDYB/ToHe3FwAAAABJRU5ErkJggg==">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#040408;color:#b8b4d0;font-family:'Inter',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::selection{background:#7c5cf6;color:#040408}
+a{color:inherit;text-decoration:none}
+
+body::after{content:'';position:fixed;inset:0;z-index:9998;pointer-events:none;
+background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+opacity:0.015}
+
+.orb{position:fixed;border-radius:50%;filter:blur(120px);pointer-events:none;z-index:0;animation:orb-f 20s ease-in-out infinite}
+.orb-1{width:500px;height:500px;background:rgba(124,92,246,0.05);top:5%;right:10%}
+.orb-2{width:350px;height:350px;background:rgba(99,102,241,0.04);bottom:20%;left:5%;animation-delay:-10s}
+.orb-3{width:250px;height:250px;background:rgba(6,182,212,0.03);top:50%;left:40%;animation-delay:-15s}
+@keyframes orb-f{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(25px,-35px) scale(1.08)}66%{transform:translate(-15px,25px) scale(0.95)}}
+
+#glow{position:fixed;width:450px;height:450px;border-radius:50%;
+background:radial-gradient(circle,rgba(124,92,246,0.05) 0%,transparent 60%);
+pointer-events:none;z-index:1;transform:translate(-50%,-50%);transition:left 0.1s,top 0.1s;display:none}
+@media(hover:hover)and(pointer:fine){#glow{display:block}}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;
+padding:14px 48px;background:rgba(4,4,8,0.9);backdrop-filter:blur(24px);border-bottom:1px solid rgba(124,92,246,0.04);
+transition:transform 0.35s,padding 0.3s}
+.n-brand{display:flex;align-items:center;gap:8px}
+.n-brand img{width:24px;height:24px}
+.n-brand span{font-family:'Plus Jakarta Sans';font-size:14px;font-weight:800;letter-spacing:0.5px}
+.n-right{display:flex;gap:16px;align-items:center}
+.n-link{font-size:10px;color:#4a4560;transition:color 0.2s;letter-spacing:0.04em;font-weight:500}
+.n-link:hover{color:#7c5cf6}
+.n-cta{padding:7px 14px;background:#7c5cf6;color:#fff;font-family:'Plus Jakarta Sans';font-size:10px;font-weight:700;border-radius:5px;transition:all 0.3s}
+.n-cta:hover{background:#6d4de0;transform:translateY(-1px)}
+
+.page{max-width:680px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+
+/* HERO */
+.hero{min-height:90vh;display:flex;flex-direction:column;justify-content:center;padding:120px 0 60px}
+.h-logo{width:48px;height:48px;margin-bottom:20px;opacity:0;animation:fadeUp 0.8s ease 0.1s forwards}
+.h-eyebrow{font-family:'JetBrains Mono';font-size:9px;color:#7c5cf6;letter-spacing:0.2em;text-transform:uppercase;
+margin-bottom:20px;opacity:0;animation:fadeUp 0.8s ease 0.2s forwards}
+.h-title{font-family:'Plus Jakarta Sans';font-size:clamp(32px,6vw,48px);font-weight:800;color:#d0cce8;
+line-height:1.1;letter-spacing:-0.03em;margin-bottom:20px;opacity:0;animation:fadeUp 0.8s ease 0.3s forwards}
+.h-title em{font-style:italic;color:#7c5cf6}
+.h-desc{font-size:17px;color:#5a5570;line-height:1.8;font-weight:300;max-width:520px;
+opacity:0;animation:fadeUp 0.8s ease 0.4s forwards}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* SCROLL INDICATOR */
+.scroll-hint{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);
+display:flex;flex-direction:column;align-items:center;gap:6px;opacity:0;animation:fadeUp 0.8s ease 0.6s forwards}
+.scroll-line{width:1px;height:32px;background:linear-gradient(to bottom,#7c5cf6,transparent);animation:scroll-pulse 2s ease infinite}
+@keyframes scroll-pulse{0%,100%{opacity:0.3}50%{opacity:1}}
+.scroll-text{font-family:'JetBrains Mono';font-size:8px;color:#2a2840;letter-spacing:0.15em;text-transform:uppercase}
+
+/* DIVIDER */
+.div-line{height:1px;margin:0;border:none;position:relative;overflow:hidden;background:rgba(124,92,246,0.03)}
+.div-line::after{content:'';position:absolute;top:0;left:0;width:50%;height:1px;
+background:linear-gradient(90deg,transparent,rgba(124,92,246,0.2),transparent);animation:sweep 5s ease-in-out infinite}
+@keyframes sweep{0%{left:-50%}100%{left:100%}}
+
+/* SECTIONS */
+.sec{padding:80px 0}
+.sec-label{font-family:'JetBrains Mono';font-size:9px;color:rgba(124,92,246,0.5);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:14px}
+.sec-title{font-family:'Plus Jakarta Sans';font-size:clamp(20px,3.5vw,28px);font-weight:800;color:#d0cce8;
+margin-bottom:20px;letter-spacing:-0.02em;line-height:1.2}
+
+.prose{font-size:15px;color:#5a5570;line-height:1.85;font-weight:300}
+.prose strong{color:#b8b4d0;font-weight:500}
+.prose p{margin-bottom:18px}
+.prose p:last-child{margin-bottom:0}
+
+/* PULLQUOTE */
+.pull{margin:36px 0;padding:28px 32px;position:relative;
+background:linear-gradient(135deg,rgba(124,92,246,0.03),rgba(99,102,241,0.02));
+border:1px solid rgba(124,92,246,0.06);border-radius:12px}
+.pull::before{content:'';position:absolute;left:0;top:16px;bottom:16px;width:2px;background:#7c5cf6;border-radius:1px}
+.pull p{font-size:16px;color:#8a86a8;line-height:1.7;font-weight:400;margin:0;padding-left:4px}
+
+/* NUMBERS */
+.nums{display:flex;gap:10px;margin:32px 0}
+.num-card{flex:1;background:rgba(255,255,255,0.015);border:1px solid rgba(124,92,246,0.06);
+border-radius:10px;padding:20px;text-align:center;transition:border-color 0.3s}
+.num-card:hover{border-color:rgba(124,92,246,0.12)}
+.num-val{font-family:'Plus Jakarta Sans';font-size:28px;font-weight:800;color:#7c5cf6;line-height:1}
+.num-lbl{font-family:'JetBrains Mono';font-size:8px;color:#2a2840;letter-spacing:0.1em;margin-top:4px;text-transform:uppercase}
+
+/* VALUES */
+.vals{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:24px}
+.val{background:rgba(255,255,255,0.012);border:1px solid rgba(124,92,246,0.05);
+border-radius:10px;padding:22px;transition:all 0.3s}
+.val:hover{border-color:rgba(124,92,246,0.12);transform:translateY(-2px)}
+.val-t{font-family:'Plus Jakarta Sans';font-size:13px;font-weight:700;color:#d0cce8;margin-bottom:5px}
+.val-d{font-size:11px;color:#3a3850;line-height:1.5;font-weight:300}
+
+/* CTA */
+.end-cta{text-align:center;padding:60px 0 80px}
+.end-title{font-family:'Plus Jakarta Sans';font-size:clamp(24px,4vw,36px);font-weight:800;
+color:#d0cce8;margin-bottom:10px;letter-spacing:-0.02em}
+.end-desc{font-size:14px;color:#3a3850;margin-bottom:28px;font-weight:300}
+.end-btn{
+  display:inline-flex;align-items:center;gap:8px;padding:14px 36px;
+  background:#7c5cf6;color:#fff;font-family:'Plus Jakarta Sans';font-size:14px;font-weight:700;
+  border-radius:8px;transition:all 0.3s;position:relative;
+}
+.end-btn::before{content:'';position:absolute;inset:-2px;border-radius:10px;background:#7c5cf6;z-index:-1;filter:blur(16px);opacity:0.2;transition:opacity 0.3s}
+.end-btn:hover{transform:translateY(-2px)}.end-btn:hover::before{opacity:0.4}
+.end-links{margin-top:16px;display:flex;gap:16px;justify-content:center}
+.end-link{font-family:'JetBrains Mono';font-size:10px;color:#3a3850;transition:color 0.2s;letter-spacing:0.04em}
+.end-link:hover{color:#7c5cf6}
+
+footer{padding:24px 48px;text-align:center;border-top:1px solid rgba(124,92,246,0.04);position:relative;z-index:1}
+.f-copy{font-family:'JetBrains Mono';font-size:9px;color:#1a1830;letter-spacing:0.04em}
+
+.rv{opacity:0;transform:translateY(20px);transition:opacity 0.8s cubic-bezier(0.16,1,0.3,1),transform 0.8s cubic-bezier(0.16,1,0.3,1)}
+.rv.on{opacity:1;transform:translateY(0)}
+.rv1{transition-delay:0.08s}.rv2{transition-delay:0.16s}
+
+@media(max-width:640px){
+  nav{padding:10px 18px}
+  .page{padding:0 18px}
+  .hero{padding:100px 0 40px}
+  .sec{padding:60px 0}
+  .nums{flex-direction:column}
+  .vals{grid-template-columns:1fr}
+  .pull{padding:20px 24px}
+  footer{padding:18px}
+  .n-link{display:none}
+  .scroll-hint{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+<div id="glow"></div>
+
+<nav>
+  <a href="/" class="n-brand"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAACy0lEQVR42u3XS0hUURzH8e953HJw0IJSkaToIVFEhWjlohbVpojoQfSCWhS0atmmTQS1CYJyUes2WlAgQbTogRRE75Qe9MJejjhpOTpO48x5tJjRIiK6QxMR84e7u5f7Of9zz++cK4Ig8PxDJfnHqgQqgUqgEuhPlEAU/KwOc7Nz7tcQoQAwLoNAIERuvFLK4oAAPP4HhEQIibVZvLUARCZU4rBkTAopxN+ZMiEkUiqsMZhshkCVMbt2NesaT7Nn5X3KJ1bjvYOQIF0oxhoDQG1NPU3zdlBfvZ4KuYDyQNJ+9xCfhl+jdBAapcNN1zfMlKm17N51mEVzNsHQJFJx6OtJ0nbzILdfnUQpjfcu9OcdCiSFxDnL1Ko6jh2/wszp9QzHYTCd5uHri7R3HCE20IlWAQ43NoTigYQUOOPYuOEANZX19PckefummwvnW7jz6ByjJpFfZVmUVPhiL/uxNwRuEqP9cOVqB9c7zjPyJcbcui1Ey2qAz3S9PcfwSBylVGiQUkod+m2Pz13v3z2hKtpIT3cKKQIikQq0iOBMhBWL9tI8dxv3XrZhbDofC6JYIIcQgqHkR251niGTHUCJMoaSH1FKsmTxUmbVzWBKdBZdby4zkOhGKR1q5RcUjEprnHc8f38JqS6xetl+Nq/dT/XkGkiV0xuPER98lu+MC/Vh6wJjEWezzKhazrrmIzQ0LCMalUwsEwymezjVvpNEsg+lNd77UFOmw1Mk1mRpmr2PNQ0tVFZqMkmIpd7x4EUrF6+dYOBzbw7jwie1CPMb5L3AmAzzp21le3Mroz5Nb+IGT2Nn6epuZ3ikPzdKHeC8Hd/5w2yuoUDOgzVZVi08ijWWpx/O0pd4PNY6tJ6Adxbvfb4zuWBURQPljx/W2fFMUlrnEty7XCb8JJ+L1qHvD2BCKDwut3n+wSpolXk83pvSmboEKoFKoP8S9BXDYB/ToHe3FwAAAABJRU5ErkJggg==" alt="Skar"><span>skar</span></a>
+  <div class="n-right">
+    <a href="/" class="n-link">Home</a>
+    <a href="/analyze.html" class="n-link">Sleep test</a>
+    <a href="/#waitlist" class="n-cta">Join waitlist</a>
+  </div>
+</nav>
+
+<div class="page">
+
+  <header class="hero" style="position:relative">
+    <img src="data:image/png;base64,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" alt="Skar" class="h-logo">
+    <div class="h-eyebrow">Why this exists</div>
+    <h1 class="h-title">I was the <em>problem user.</em></h1>
+    <p class="h-desc">Every night, same loop. "One more reel." Then it is 2 AM. Then the alarm. Then the snooze. Then the brain fog. I did not build Skar because I had a startup idea. I built it because I was tired of losing to my own phone.</p>
+    <div class="scroll-hint">
+      <div class="scroll-line"></div>
+      <div class="scroll-text">Scroll</div>
+    </div>
+  </header>
+
+  <hr class="div-line">
+
+  <div class="sec rv">
+    <div class="sec-label">11:47 PM, every night</div>
+    <h2 class="sec-title">I knew exactly what I was doing. I just could not stop.</h2>
+    <div class="prose">
+      <p>I would get into bed at 11. The plan was always "sleep by 11:30." Then I would open Instagram. Just to check. One reel becomes ten. Ten becomes forty. Suddenly it is 1 AM and I am watching someone rank football players I have never heard of.</p>
+      <p>The worst part? I was not even enjoying it. I was just... stuck. The algorithm had me. <strong>Every morning I woke up groggy, rushed, and already behind.</strong> I would tell myself tonight will be different. It never was.</p>
+      <p>I tried everything. Screen time limits (you just tap "ignore"). Alarms at 10:30 PM (you just snooze them). Putting the phone across the room (you just get up and get it). Willpower does not work when the other side has a billion-dollar algorithm designed to keep you scrolling.</p>
+    </div>
+  </div>
+
+  <hr class="div-line">
+
+  <div class="sec rv">
+    <div class="sec-label">The realization</div>
+    <h2 class="sec-title">If the problem is engineered, the solution has to be engineered too.</h2>
+    <div class="prose">
+      <p>I work in marketing. I understand how content is designed to hook you. The infinite scroll, the autoplay, the notification timing. None of it is accidental. <strong>Your phone is not a distraction. It is a machine built to capture your attention.</strong></p>
+      <p>So I asked a simple question: what if I could not open those apps after a certain time? Not a reminder I can dismiss. Not a setting I can override. A real lock. One that only opens when I complete a morning ritual the next day.</p>
+      <p>That question became Skar.</p>
+    </div>
+    <div class="pull">
+      <p>"The best time to decide to sleep early is 6 PM, not midnight. At midnight, your feed is showing you the most engaging content it has ever shown you."</p>
+    </div>
+  </div>
+
+  <hr class="div-line">
+
+  <div class="sec rv">
+    <div class="sec-label">What we are building</div>
+    <h2 class="sec-title">Not another wellness app. A lockdown system.</h2>
+    <div class="prose">
+      <p>Skar is not about tracking how bad your sleep is. You already know it is bad. Skar is about making the decision for you before your willpower runs out.</p>
+      <p>You set your lock-in time during the day when you are thinking clearly. At night, Skar blocks your distracting apps using Android accessibility services. No workaround. No force-close bypass. You want to break out? Hold for 13 seconds, post a public confession, and watch your streak reset.</p>
+      <p><strong>The friction is the feature.</strong> We made quitting hard on purpose.</p>
+    </div>
+    <div class="nums rv1">
+      <div class="num-card"><div class="num-val">6</div><div class="num-lbl">Indian cities</div></div>
+      <div class="num-card"><div class="num-val">4</div><div class="num-lbl">Chronotypes</div></div>
+      <div class="num-card"><div class="num-val">12</div><div class="num-lbl">Features at launch</div></div>
+    </div>
+  </div>
+
+  <hr class="div-line">
+
+  <div class="sec rv">
+    <div class="sec-label">What we believe</div>
+    <h2 class="sec-title">Principles, not features.</h2>
+    <div class="vals">
+      <div class="val"><div class="val-t">Discipline over motivation</div><div class="val-d">Motivation fades by 11 PM. Systems do not. Skar is a system, not a reminder.</div></div>
+      <div class="val"><div class="val-t">Friction is a feature</div><div class="val-d">The 13-second hold. The confession. The streak reset. We made quitting hard on purpose.</div></div>
+      <div class="val"><div class="val-t">No fake gamification</div><div class="val-d">The city journey, the score, the badges. They track real behavior, not empty engagement loops.</div></div>
+      <div class="val"><div class="val-t">Built for India</div><div class="val-d">Indian cities. Indian landmarks. Language and culture that Gen Z India actually lives in.</div></div>
+    </div>
+  </div>
+
+  <hr class="div-line">
+
+  <div class="end-cta rv">
+    <div class="end-title">Lock in tonight.</div>
+    <p class="end-desc">We are launching soon. Early users get in free.</p>
+    <a href="/#waitlist" class="end-btn">Join the waitlist</a>
+    <div class="end-links">
+      <a href="/analyze.html" class="end-link">Take the sleep test</a>
+      <a href="/" class="end-link">Back to home</a>
+    </div>
+  </div>
+
+</div>
+
+<footer><div class="f-copy">&copy; 2026 skar</div></footer>
+
+<script>
+(function(){var g=document.getElementById('glow');
+if(window.matchMedia('(hover:hover) and (pointer:fine)').matches){
+document.addEventListener('mousemove',function(e){g.style.left=e.clientX+'px';g.style.top=e.clientY+'px';});}})();
+
+(function(){var obs=new IntersectionObserver(function(entries){
+entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('on');});
+},{threshold:0.05,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.rv').forEach(function(el){obs.observe(el);});})();
+
+(function(){var ly=0;var n=document.querySelector('nav');
+window.addEventListener('scroll',function(){var y=window.scrollY;
+n.style.padding=y>50?'8px 48px':'14px 48px';
+if(y>ly&&y>400)n.style.transform='translateY(-100%)';
+else n.style.transform='translateY(0)';ly=y;},{passive:true});})();
+
+// Hide scroll hint on scroll
+(function(){var h=document.querySelector('.scroll-hint');if(!h)return;
+window.addEventListener('scroll',function(){if(window.scrollY>100)h.style.opacity='0';},{passive:true});})();
+</script>
+
+</body>
+</html>
