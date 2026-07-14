@@ -121,7 +121,7 @@ background:linear-gradient(135deg,#7c5cf6,#a78bfa);z-index:-1;filter:blur(16px);
 .hero-cta:hover::before{opacity:0.45}
 .hero-note{margin-top:16px;font-family:'JetBrains Mono';font-size:10px;color:#87829d;letter-spacing:0.08em}
 
-/* HOLD-TO-UNLOCK — a short version of Skar's core ritual */
+/* HOLD-TO-UNLOCK: a short version of Skar's core ritual */
 .hero-cta.hold-cta{--hold:0;overflow:hidden;isolation:isolate;touch-action:none;user-select:none}
 .hero-cta.hold-cta::after{content:'';position:absolute;inset:0;z-index:-1;width:calc(var(--hold) * 1%);
 background:linear-gradient(90deg,#a78bfa,#e8c3ff);transition:width 0.05s linear}
@@ -382,9 +382,9 @@ font-size:8px;letter-spacing:0.12em;white-space:nowrap;opacity:0.7;transition:co
 @keyframes bird-fly{from{transform:translateX(0) translateY(0)}to{transform:translateX(120vw) translateY(-30px)}}
 @keyframes cloud-drift{0%,100%{transform:translateX(0)}50%{transform:translateX(45px)}}
 
-/* CARD TILT — only promote layer on hover, not always */
+/* CARD TILT: only promote layer on hover, not always */
 
-/* PROGRESS DOT NAV — styled like the city-journey unlock trail */
+/* PROGRESS DOT NAV: styled like the city-journey unlock trail */
 .dot-nav{position:fixed;left:26px;top:50%;transform:translateY(-50%);z-index:150;
 display:flex;flex-direction:column;align-items:center}
 .dot-nav-item{display:flex;flex-direction:column;align-items:center;position:relative}
@@ -404,7 +404,7 @@ opacity:0;pointer-events:none;transition:opacity 0.25s ease,transform 0.25s ease
 /* CONFETTI CANVAS */
 #confettiCanvas{position:fixed;inset:0;z-index:2000;pointer-events:none}
 
-/* CINEMATIC POLISH — depth and focus, without adding visual noise */
+/* CINEMATIC POLISH: depth and focus, without adding visual noise */
 .dawn-veil{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0;background:linear-gradient(180deg,rgba(20,12,24,.20),rgba(34,16,22,.42) 55%,rgba(28,12,20,.18));transition:opacity .35s linear}
 .scene-depth{transition:transform .25s ease-out}
 .stack-card:hover,.phone-shell:hover{will-change:transform}
@@ -434,10 +434,10 @@ section{padding-top:64px;padding-bottom:64px}
 .sc-preview:has(.artifact)::before,.sc-preview:has(.artifact)::after{display:none}.artifact{position:absolute;inset:14px;overflow:hidden;border:1px solid rgba(255,255,255,.16);border-radius:12px;background:rgba(7,8,19,.36);padding:14px;text-align:left;color:#f5f1ff;font-family:'Inter',sans-serif;letter-spacing:0}.artifact-label{font:500 8px 'JetBrains Mono';letter-spacing:.13em;color:#aaa1c1;text-transform:uppercase}.artifact-time{margin:7px 0 12px;font:800 30px 'Plus Jakarta Sans';letter-spacing:-.06em;line-height:1}.artifact-muted{font-size:9px;color:#b6afc7}.lock-orb{width:52px;height:52px;margin:9px auto;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle,#d7c3ff 0 20%,#6c51bf 23% 28%,rgba(112,81,190,.16) 31% 58%,transparent 60%);font-size:16px;box-shadow:0 0 30px rgba(159,117,255,.45)}.artifact-center{text-align:center}.artifact-rule{height:5px;border-radius:9px;background:rgba(255,255,255,.1);margin-top:9px;overflow:hidden}.artifact-rule i{display:block;height:100%;width:72%;background:linear-gradient(90deg,#aa8df7,#f0c18a);border-radius:inherit}.score-row{display:flex;align-items:end;justify-content:space-between;margin:12px 0}.score-big{font:800 34px 'Plus Jakarta Sans';letter-spacing:-.08em;color:#ddfff8}.score-streak{padding:6px 8px;border-radius:8px;background:rgba(135,234,208,.12);font:700 9px 'JetBrains Mono';color:#b3ffe8}.bars{height:35px;display:flex;align-items:end;gap:5px}.bars i{width:10px;border-radius:4px 4px 2px 2px;background:linear-gradient(#8debd3,#4f7baf)}.city-map{position:absolute;inset:0;background:radial-gradient(circle at 75% 20%,rgba(255,189,110,.18),transparent 32%),linear-gradient(135deg,transparent 30%,rgba(255,255,255,.07) 30% 32%,transparent 32% 58%,rgba(255,255,255,.06) 58% 60%,transparent 60%)}.city-route{position:absolute;left:19%;top:28%;width:63%;height:42%;border:2px dashed #f6bf7c;border-radius:50%;transform:rotate(-14deg)}.city-pin{position:absolute;width:17px;height:17px;border-radius:50% 50% 50% 0;background:#ffc47d;transform:rotate(-45deg);box-shadow:0 0 18px rgba(255,187,110,.6)}.city-pin:after{content:'';position:absolute;width:6px;height:6px;border-radius:50%;background:#29172a;top:5px;left:5px}.city-one{left:19%;bottom:22%}.city-two{right:20%;top:21%}.city-caption{position:absolute;left:13px;bottom:11px;font:700 9px 'JetBrains Mono';color:#ffe5bf}.avatars{display:flex;margin:15px 0 10px}.avatar{width:31px;height:31px;margin-right:-7px;border:2px solid #101025;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#ffb48f,#8755c8);font-size:12px}.squad-line{padding:8px;border-radius:8px;background:rgba(255,255,255,.08);font-size:9px}.chrono{width:76px;height:76px;margin:4px auto 8px;border-radius:50%;border:7px solid rgba(255,225,169,.16);border-top-color:#ffdaa2;border-right-color:#ffdaa2;transform:rotate(38deg);box-shadow:0 0 20px rgba(255,190,115,.2)}.chrono-copy{text-align:center;font-size:10px;color:#f8d7ae}.confession{margin-top:13px;padding:11px;border-radius:10px;background:rgba(255,255,255,.09);font:500 10px/1.5 'Inter';color:#e6dff0}.confession b{display:block;margin-top:7px;font:500 8px 'JetBrains Mono';letter-spacing:.08em;color:#d2bdfc}
 @media(max-width:700px){section{padding:52px 20px}.stack-card{padding:25px 21px;min-height:auto}.sc-preview{min-height:145px}.counter{padding:20px 8px}.footer-w{padding:32px 22px 24px}.hero{min-height:88vh}}
 
-/* PERF — let browser skip work on offscreen sections */
+/* PERF: let browser skip work on offscreen sections */
 #demo,#doom,#how,#waitlist,.bottom,.footer-w{content-visibility:auto;contain-intrinsic-size:auto 800px}
 
-/* ═══ TIME CHIP — right now, in the visitor's timezone ═══ */
+/* ═══ TIME CHIP: right now, in the visitor's timezone ═══ */
 .time-chip{position:fixed;top:80px;right:24px;z-index:150;padding:8px 14px;border-radius:100px;
 background:rgba(4,4,8,0.85);backdrop-filter:blur(20px);border:1px solid rgba(124,92,246,0.15);
 font-family:'JetBrains Mono';font-size:10px;color:#9691af;letter-spacing:0.04em;
@@ -485,7 +485,7 @@ box-shadow:0 34px 100px rgba(5,3,18,.55),0 0 0 1px rgba(196,177,255,.35),0 0 40p
 100%{box-shadow:0 34px 100px rgba(5,3,18,.55),0 0 0 1px rgba(196,177,255,.35),0 0 40px rgba(124,92,246,0.2)}}
 .stack-card.just-locked{animation:lock-flash 0.9s ease-out}
 
-/* Artifacts alive — animate previews when card locks in */
+/* Artifacts alive: animate previews when card locks in */
 .stack-card .sc-preview::after{transition:all 0.7s cubic-bezier(0.16,1,0.3,1)}
 .stack-card.locked .sc-preview::after{filter:drop-shadow(0 0 25px rgba(255,179,103,0.7)) brightness(1.15)}
 .stack-card.locked:nth-child(1) .sc-preview::after{animation:artifact-glow 2s ease-in-out infinite}
@@ -516,7 +516,7 @@ background:radial-gradient(circle at 30% 30%,rgba(255,255,255,0.25),transparent 
 .hero-cta.hold-cta.moon-shatter{animation:cta-shake 0.4s ease}
 @keyframes cta-shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
 
-/* ═══ DOOMSCROLL TRAP — realistic iPhone + Instagram Reels ═══ */
+/* ═══ DOOMSCROLL TRAP: realistic iPhone + Instagram Reels ═══ */
 .doom-sec{padding:80px 24px 90px;position:relative;z-index:1}
 .doom-stage{margin-top:44px;display:flex;justify-content:center;perspective:1400px;position:relative}
 .iphone{position:relative;width:310px;height:640px;border-radius:52px;
@@ -565,7 +565,7 @@ box-shadow:0 0 0 1px rgba(255,255,255,0.03)}
 .ig-feed-inner{display:flex;flex-direction:column;will-change:transform}
 .ig-reel{width:100%;height:616px;position:relative;flex-shrink:0;overflow:hidden}
 
-/* Video area — abstract gradient scenes */
+/* Video area: abstract gradient scenes */
 .ig-video{position:absolute;inset:0;overflow:hidden}
 .ig-video::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(0,0,0,0.4) 80%,rgba(0,0,0,0.7));z-index:2;pointer-events:none}
 .ig-scene{position:absolute;inset:0}
@@ -1297,7 +1297,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
   window.addEventListener('resize',updateScene);
 })();
 
-// TONIGHT'S MOON — approximate astronomical phase, calculated locally (no API).
+// TONIGHT'S MOON: approximate astronomical phase, calculated locally (no API).
 (function(){
   var shade=document.getElementById('moonShade');
   if(!shade)return;
@@ -1312,7 +1312,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
   shade.style.transform='translateX('+(illumination*110)+'%)';
 })();
 
-// PRIMARY CTA — hold teaches the product's core interaction before signup.
+// PRIMARY CTA: hold teaches the product's core interaction before signup.
 // Once unlocked, the button becomes a normal tap-to-navigate anchor.
 (function(){
   var cta=document.getElementById('holdCta');
@@ -1325,7 +1325,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
     cta.style.setProperty('--hold',Math.round(progress*100));
     if(progress>=1){
       unlocked=true;cta.classList.remove('is-holding');cta.classList.add('is-unlocked');
-      cta.innerHTML='<span class="moon" aria-hidden="true"></span>Locked in &mdash; tap to join <span aria-hidden="true">&rarr;</span>';
+      cta.innerHTML='<span class="moon" aria-hidden="true"></span>Locked in. Tap to join <span aria-hidden="true">&rarr;</span>';
       return;
     }
     frame=requestAnimationFrame(tick);
@@ -1414,7 +1414,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
   });
 })();
 
-// PROGRESS DOT NAV — mirrors the app's city-journey unlock trail
+// PROGRESS DOT NAV: mirrors the app's city-journey unlock trail
 (function(){
   var sections=[
     {id:'hero',label:'Home'},
@@ -1561,7 +1561,7 @@ document.body.style.overflow=menu.classList.contains('open')?'hidden':'';});
 menu.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){
 btn.classList.remove('open');menu.classList.remove('open');document.body.style.overflow='';});});})();
 
-// ═══ TIME CHIP — right now, judgy after 11 PM ═══
+// ═══ TIME CHIP: right now, judgy after 11 PM ═══
 (function(){
   var chip=document.getElementById('timeChip');
   if(!chip)return;
@@ -1583,7 +1583,7 @@ btn.classList.remove('open');menu.classList.remove('open');document.body.style.o
   setInterval(upd,30000);
 })();
 
-// ═══ CURSOR FIREFLY (night) / SPARROW (dawn) — idle-aware to save frames ═══
+// ═══ CURSOR FIREFLY (night) / SPARROW (dawn): idle-aware to save frames ═══
 (function(){
   if(!window.matchMedia('(hover:hover) and (pointer:fine)').matches)return;
   var firefly=document.getElementById('firefly'),sparrow=document.getElementById('sparrow');
@@ -1644,14 +1644,14 @@ btn.classList.remove('open');menu.classList.remove('open');document.body.style.o
 })();
 
 
-// ═══ DOOMSCROLL TRAP — realistic Reels feed, endless scroll, tiered counter ═══
+// ═══ DOOMSCROLL TRAP: realistic Reels feed, endless scroll, tiered counter ═══
 (function(){
   var feed=document.getElementById('igFeed');
   if(!feed)return;
   var reels=[
-    {u:'mumbai.foodies',s:1,shape:'🍜',cap:'Bandra\'s <b>hidden chai spot</b> nobody knows about',song:'Naav — Ritviz',likes:'182K',cmts:'4.2K',shr:'8.1K'},
+    {u:'mumbai.foodies',s:1,shape:'🍜',cap:'Bandra\'s <b>hidden chai spot</b> nobody knows about',song:'Naav · Ritviz',likes:'182K',cmts:'4.2K',shr:'8.1K'},
     {u:'cricket.reels.in',s:3,shape:'🏏',cap:'<b>Kohli\'s top 10 cover drives</b> · you will watch all',song:'original audio · cricket_reels',likes:'421K',cmts:'12K',shr:'34K'},
-    {u:'delhi.gym.diary',s:4,shape:'💪',cap:'Day 47 of shredding · <b>tell me you can see it</b>',song:'gym motivation — bassbostd',likes:'89K',cmts:'2.1K',shr:'4.3K'},
+    {u:'delhi.gym.diary',s:4,shape:'💪',cap:'Day 47 of shredding · <b>tell me you can see it</b>',song:'gym motivation · bassbostd',likes:'89K',cmts:'2.1K',shr:'4.3K'},
     {u:'bollywood.tea',s:6,shape:'✨',cap:'What she said <b>at the wedding</b> · wait for it',song:'original audio · bollytea',likes:'610K',cmts:'28K',shr:'92K'},
     {u:'techwithhindi',s:7,shape:'📱',cap:'<b>iPhone 17 leaks</b> · this is going to shock you',song:'original audio',likes:'240K',cmts:'8.4K',shr:'19K'},
     {u:'standup.bombay',s:8,shape:'🎤',cap:'When your mom asks about <b>marriage at a wedding</b>',song:'original audio · standupbombay',likes:'340K',cmts:'11K',shr:'26K'},
@@ -1714,7 +1714,7 @@ btn.classList.remove('open');menu.classList.remove('open');document.body.style.o
     if(!startTime)startTime=ts;
     var elapsed=(ts-startTime)/1000;
     offset=elapsed*46; // slow scroll speed
-    // seamless loop — after full pass, snap back
+    // seamless loop: after full pass, snap back
     if(offset>=reels.length*reelH){startTime=ts;offset=0;}
     feed.style.transform='translateY('+(-offset)+'px)';
     valEl.textContent=elapsed.toFixed(1)+'s';
