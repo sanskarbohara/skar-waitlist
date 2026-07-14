@@ -58,6 +58,25 @@ border-bottom:1px solid rgba(124,92,246,0.12);transition:transform 0.35s,padding
 border-radius:8px;transition:all 0.3s;letter-spacing:0.02em}
 .n-cta:hover{background:#6d4de0;transform:translateY(-1px);box-shadow:0 4px 18px rgba(124,92,246,0.25)}
 
+.ham{display:none;width:36px;height:36px;background:none;border:1px solid rgba(124,92,246,0.12);border-radius:8px;cursor:pointer;padding:8px 7px;position:relative;z-index:202;transition:border-color 0.3s}
+.ham:hover{border-color:rgba(124,92,246,0.3)}
+.ham span{display:block;width:100%;height:1.5px;background:#ccc8e0;transition:all 0.3s;margin-bottom:5px}
+.ham span:last-child{margin-bottom:0}
+.ham.open span:nth-child(1){transform:rotate(45deg) translate(4px,5px)}
+.ham.open span:nth-child(2){opacity:0;transform:translateX(-8px)}
+.ham.open span:nth-child(3){transform:rotate(-45deg) translate(4px,-5px)}
+.mob-menu{position:fixed;inset:0;background:rgba(4,4,8,0.97);backdrop-filter:blur(30px);z-index:199;
+display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;
+opacity:0;pointer-events:none;transition:opacity 0.35s}
+.mob-menu.open{opacity:1;pointer-events:auto}
+.mob-menu a{font-family:'Plus Jakarta Sans';font-size:22px;font-weight:600;color:#ccc8e0;transition:all 0.4s cubic-bezier(0.16,1,0.3,1);
+transform:translateY(12px);opacity:0}
+.mob-menu.open a{transform:translateY(0);opacity:1}
+.mob-menu a:nth-child(1){transition-delay:0.05s}.mob-menu a:nth-child(2){transition-delay:0.1s}
+.mob-menu a:nth-child(3){transition-delay:0.15s}.mob-menu a:nth-child(4){transition-delay:0.2s}
+.mob-menu a:hover{color:#7c5cf6}
+.mob-menu .mm-cta{padding:14px 32px;background:#7c5cf6;color:#fff;border-radius:10px;font-size:16px;font-weight:700}
+
 /* HERO */
 .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
 text-align:center;padding:120px 24px 80px;position:relative;z-index:1}
@@ -327,7 +346,8 @@ animation:line-sweep 4s ease-in-out infinite}
 @media(max-width:900px){.fg,.sg{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:768px){
   nav{padding:14px 20px}
-  .n-link{display:none}
+  .n-link,.n-cta{display:none}
+  .ham{display:block}
   section{padding:70px 18px}
   .fg,.sg{grid-template-columns:1fr}
   .m-phone{display:none}
@@ -429,12 +449,20 @@ section{padding-top:64px;padding-bottom:64px}
   <div class="n-right">
     <a href="#features" class="n-link">Features</a>
     <a href="#how" class="n-link">How it works</a>
-    <a href="/analyze.html" class="n-link">Sleep test</a>
-    <a href="/about.html" class="n-link">About</a>
+    <a href="analyze.html" class="n-link">Sleep test</a>
+    <a href="about.html" class="n-link">About</a>
     <a href="#demo" class="n-link">Preview</a>
     <a href="#waitlist" class="n-cta">Join waitlist</a>
   </div>
+  <button class="ham" id="hamBtn" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
+
+<div class="mob-menu" id="mobMenu">
+  <a href="#features">Features</a>
+  <a href="analyze.html">Sleep Test</a>
+  <a href="about.html">About</a>
+  <a href="#waitlist" class="mm-cta">Join waitlist</a>
+</div>
 
 <header class="hero" id="hero">
   <div class="hero-orb"></div>
@@ -597,17 +625,36 @@ section{padding-top:64px;padding-bottom:64px}
 </div>
 
 <div class="footer-w">
-  <footer>
-    <div class="f-brand"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAACy0lEQVR42u3XS0hUURzH8e953HJw0IJSkaToIVFEhWjlohbVpojoQfSCWhS0atmmTQS1CYJyUes2WlAgQbTogRRE75Qe9MJejjhpOTpO48x5tJjRIiK6QxMR84e7u5f7Of9zz++cK4Ig8PxDJfnHqgQqgUqgEuhPlEAU/KwOc7Nz7tcQoQAwLoNAIERuvFLK4oAAPP4HhEQIibVZvLUARCZU4rBkTAopxN+ZMiEkUiqsMZhshkCVMbt2NesaT7Nn5X3KJ1bjvYOQIF0oxhoDQG1NPU3zdlBfvZ4KuYDyQNJ+9xCfhl+jdBAapcNN1zfMlKm17N51mEVzNsHQJFJx6OtJ0nbzILdfnUQpjfcu9OcdCiSFxDnL1Ko6jh2/wszp9QzHYTCd5uHri7R3HCE20IlWAQ43NoTigYQUOOPYuOEANZX19PckefummwvnW7jz6ByjJpFfZVmUVPhiL/uxNwRuEqP9cOVqB9c7zjPyJcbcui1Ey2qAz3S9PcfwSBylVGiQUkod+m2Pz13v3z2hKtpIT3cKKQIikQq0iOBMhBWL9tI8dxv3XrZhbDofC6JYIIcQgqHkR251niGTHUCJMoaSH1FKsmTxUmbVzWBKdBZdby4zkOhGKR1q5RcUjEprnHc8f38JqS6xetl+Nq/dT/XkGkiV0xuPER98lu+MC/Vh6wJjEWezzKhazrrmIzQ0LCMalUwsEwymezjVvpNEsg+lNd77UFOmw1Mk1mRpmr2PNQ0tVFZqMkmIpd7x4EUrF6+dYOBzbw7jwie1CPMb5L3AmAzzp21le3Mroz5Nb+IGT2Nn6epuZ3ikPzdKHeC8Hd/5w2yuoUDOgzVZVi08ijWWpx/O0pd4PNY6tJ6Adxbvfb4zuWBURQPljx/W2fFMUlrnEty7XCb8JJ+L1qHvD2BCKDwut3n+wSpolXk83pvSmboEKoFKoP8S9BXDYB/ToHe3FwAAAABJRU5ErkJggg==" alt="Skar"><span>skar</span></div>
-    <div class="f-links">
-      <a href="https://sanskarbohara.github.io/skar-legal/privacy.html" target="_blank">Privacy</a>
-      <a href="https://sanskarbohara.github.io/skar-legal/terms.html" target="_blank">Terms</a>
-      <a href="https://instagram.com/skar.app" target="_blank">Instagram</a>
-      <a href="/about.html">About</a>
-      <a href="/analyze.html">Sleep test</a>
+  <div class="footer-top">
+    <div class="footer-brand-block">
+      <div class="f-brand"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAACy0lEQVR42u3XS0hUURzH8e953HJw0IJSkaToIVFEhWjlohbVpojoQfSCWhS0atmmTQS1CYJyUes2WlAgQbTogRRE75Qe9MJejjhpOTpO48x5tJjRIiK6QxMR84e7u5f7Of9zz++cK4Ig8PxDJfnHqgQqgUqgEuhPlEAU/KwOc7Nz7tcQoQAwLoNAIERuvFLK4oAAPP4HhEQIibVZvLUARCZU4rBkTAopxN+ZMiEkUiqsMZhshkCVMbt2NesaT7Nn5X3KJ1bjvYOQIF0oxhoDQG1NPU3zdlBfvZ4KuYDyQNJ+9xCfhl+jdBAapcNN1zfMlKm17N51mEVzNsHQJFJx6OtJ0nbzILdfnUQpjfcu9OcdCiSFxDnL1Ko6jh2/wszp9QzHYTCd5uHri7R3HCE20IlWAQ43NoTigYQUOOPYuOEANZX19PckefummwvnW7jz6ByjJpFfZVmUVPhiL/uxNwRuEqP9cOVqB9c7zjPyJcbcui1Ey2qAz3S9PcfwSBylVGiQUkod+m2Pz13v3z2hKtpIT3cKKQIikQq0iOBMhBWL9tI8dxv3XrZhbDofC6JYIIcQgqHkR251niGTHUCJMoaSH1FKsmTxUmbVzWBKdBZdby4zkOhGKR1q5RcUjEprnHc8f38JqS6xetl+Nq/dT/XkGkiV0xuPER98lu+MC/Vh6wJjEWezzKhazrrmIzQ0LCMalUwsEwymezjVvpNEsg+lNd77UFOmw1Mk1mRpmr2PNQ0tVFZqMkmIpd7x4EUrF6+dYOBzbw7jwie1CPMb5L3AmAzzp21le3Mroz5Nb+IGT2Nn6epuZ3ikPzdKHeC8Hd/5w2yuoUDOgzVZVi08ijWWpx/O0pd4PNY6tJ6Adxbvfb4zuWBURQPljx/W2fFMUlrnEty7XCb8JJ+L1qHvD2BCKDwut3n+wSpolXk83pvSmboEKoFKoP8S9BXDYB/ToHe3FwAAAABJRU5ErkJggg==" alt="Skar"><span>skar</span></div>
+      <p class="footer-tagline">Your phone wins every night. We are building the fix.</p>
     </div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h4>Product</h4>
+        <a href="#features">Features</a>
+        <a href="analyze.html">Sleep Test</a>
+        <a href="#demo">Preview</a>
+        <a href="#waitlist">Join Waitlist</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="about.html">About</a>
+        <a href="https://sanskarbohara.github.io/skar-legal/privacy.html" target="_blank">Privacy</a>
+        <a href="https://sanskarbohara.github.io/skar-legal/terms.html" target="_blank">Terms</a>
+        <a href="https://instagram.com/skar.app" target="_blank">Instagram</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
     <div class="f-copy">&copy; 2026 skar</div>
-  </footer>
+    <div class="footer-social">
+      <a href="https://instagram.com/skar.app" target="_blank" aria-label="Instagram">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      </a>
+    </div>
+  </div>
 </div>
 
 <!-- MODAL -->
@@ -1180,6 +1227,14 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener
     if(canvas){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
   });
 })();
+
+// HAMBURGER MENU
+(function(){var btn=document.getElementById('hamBtn'),menu=document.getElementById('mobMenu');
+if(!btn||!menu)return;
+btn.addEventListener('click',function(){btn.classList.toggle('open');menu.classList.toggle('open');
+document.body.style.overflow=menu.classList.contains('open')?'hidden':'';});
+menu.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){
+btn.classList.remove('open');menu.classList.remove('open');document.body.style.overflow='';});});})();
 </script>
 <script src="https://tally.so/widgets/embed.js" async></script>
 </body>
