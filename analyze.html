@@ -470,7 +470,7 @@ display:flex;align-items:center;justify-content:center;color:#9691af;transition:
       <div class="r-card"><div class="r-lbl">CHRONOTYPE</div><div class="r-val" id="cName"></div><div class="r-sub" id="cDesc"></div></div>
       <div class="r-card"><div class="r-lbl">SLEEP DURATION</div><div class="r-val" id="dVal"></div><div class="r-sub" id="dDesc"></div></div>
       <div class="r-card"><div class="r-lbl">IDEAL BEDTIME</div><div class="r-val" id="iBed"></div><div class="r-sub">Based on your chronotype</div></div>
-      <div class="r-card"><div class="r-lbl">IDEAL WAKE TIME</div><div class="r-val" id="iWake"></div><div class="r-sub">Aligned to 90-min cycles</div></div>
+      <div class="r-card"><div class="r-lbl">IDEAL WAKE TIME</div><div class="r-val" id="iWake"></div><div class="r-sub">5 full 90-min sleep cycles</div></div>
     </div>
     <div class="r-issues">
       <div class="r-issues-title">WHAT WE FOUND</div>
@@ -637,11 +637,16 @@ function showResults(){
   sc-=[0,5,14,20][D.feel||0];
   sc=Math.max(5,Math.min(100,Math.round(sc)));
 
-  var ch;
-  if(bH24>=1&&bH24<5||bH24===0)ch={n:'Night Wolf',d:'You come alive after midnight. Mornings are war.',b:'12:00 AM',w:'8:00 AM'};
-  else if(bH24>=22)ch={n:'Steady Bear',d:'You follow the sun. Consistent and grounded.',b:'10:30 PM',w:'6:30 AM'};
-  else if(bH24>=19&&bH24<22)ch={n:'Early Lion',d:'Up before the world. Mornings are your zone.',b:'9:30 PM',w:'5:30 AM'};
-  else ch={n:'Light Dolphin',d:'Fragile, irregular sleep. Quality matters most.',b:'10:00 PM',w:'6:00 AM'};
+  // CHRONOTYPE — based on Michael Breus's classification.
+  // Dolphin = restless/fragmented sleep (waking worse or heavy snoozing despite bedtime).
+  // Wolf = late natural bedtime. Lion = early natural bedtime. Bear = the middle 50%.
+  // Ideal windows are 7.5h (5 full 90-min sleep cycles) for real cycle alignment.
+  var ch,dolphinLikely=(D.feel>=3)||(D.feel>=2&&D.snooze>=2);
+  if(dolphinLikely)ch={n:'Light Dolphin',d:'Fragmented sleep. You are technically in bed long enough, but not truly resting. Quality is the fix, not quantity.',b:'10:30 PM',w:'6:00 AM'};
+  else if(bH24>=0&&bH24<5)ch={n:'Night Wolf',d:'You come alive after midnight. Mornings are war. Your body wants to sleep late — you just need to sleep enough.',b:'12:30 AM',w:'8:00 AM'};
+  else if(bH24===23)ch={n:'Night Wolf',d:'Slight night-owl tendency. Late bedtime, but you can be pulled earlier with the right routine.',b:'11:30 PM',w:'7:00 AM'};
+  else if(bH24>=19&&bH24<22)ch={n:'Early Lion',d:'Up before the world. Mornings are your zone. Protect them by sleeping earlier, not later.',b:'9:30 PM',w:'5:00 AM'};
+  else ch={n:'Steady Bear',d:'You follow the sun. Half the population is like you. Consistency is your superpower.',b:'10:30 PM',w:'6:00 AM'};
 
   var vt,vd;
   if(sc>=80){vt='Solid. But there is still upside.';vd='Your sleep is above average. A few tweaks could push you to peak performance.';}
@@ -651,14 +656,18 @@ function showResults(){
 
   // Determine issue severity
   var iss=[];
-  if(sl<420)iss.push({sev:'critical',t:'<strong>Sleep duration: '+durTxt+'.</strong> Your body needs 7 hours minimum to complete all sleep cycles.'});
-  if(sl>600)iss.push({sev:'warning',t:'<strong>Oversleeping: '+durTxt+'.</strong> Sleeping over 10 hours increases grogginess and reduces quality.'});
-  if(bH24>=0&&bH24<5)iss.push({sev:'critical',t:'<strong>Very late bedtime.</strong> Going to bed after midnight delays REM cycles. You are missing the most restorative phase.'});
-  else if(bH24===23)iss.push({sev:'warning',t:'<strong>Late bedtime.</strong> Getting in bed after 11 PM pushes your REM window later.'});
-  if(D.screen>=2)iss.push({sev:'critical',t:'<strong>Screen time in bed.</strong> Blue light suppresses melatonin by up to 22%. Your brain does not know it is nighttime.'});
-  if(D.snooze>=2)iss.push({sev:'warning',t:'<strong>Snooze habit.</strong> Every snooze fragments your last sleep cycle. You wake up groggier than with the first alarm.'});
-  if(D.feel>=2)iss.push({sev:'warning',t:'<strong>Morning grogginess.</strong> Your alarm is pulling you out of deep sleep. Circadian rhythm is misaligned.'});
-  if(iss.length===0)iss.push({sev:'info',t:'<strong>No major issues.</strong> Your sleep hygiene is solid. Focus on consistency.'});
+  if(sl<300)iss.push({sev:'critical',t:'<strong>Sleep duration: '+durTxt+'.</strong> Under 5 hours puts you at real risk. Adults 18-25 need 7 to 9 hours to run 4-6 full sleep cycles.'});
+  else if(sl<420)iss.push({sev:'critical',t:'<strong>Sleep duration: '+durTxt+'.</strong> You are running short of the 7 hour minimum. Your brain is not finishing enough REM cycles.'});
+  if(sl>600)iss.push({sev:'warning',t:'<strong>Oversleeping: '+durTxt+'.</strong> Sleeping over 10 hours regularly is often a sign of unrecovered sleep debt or low sleep quality.'});
+  if(bH24>=0&&bH24<5)iss.push({sev:'critical',t:'<strong>Very late bedtime.</strong> Going to bed after midnight pushes REM into your morning alarm window. You are cutting off the most restorative phase.'});
+  else if(bH24===23)iss.push({sev:'warning',t:'<strong>Late bedtime.</strong> Getting in bed after 11 PM shifts your circadian window later than most people your age.'});
+  if(D.screen>=3)iss.push({sev:'critical',t:'<strong>Over an hour of screens in bed.</strong> Blue light suppresses melatonin by up to 22 percent. Your brain does not know it is nighttime.'});
+  else if(D.screen>=2)iss.push({sev:'warning',t:'<strong>Screen time in bed.</strong> 30 to 60 minutes of scrolling delays sleep onset and reduces deep sleep.'});
+  if(D.snooze>=3)iss.push({sev:'critical',t:'<strong>Chronic snoozing.</strong> Losing count of snoozes is a strong signal of sleep debt. Each snooze restarts a sleep cycle you never finish.'});
+  else if(D.snooze>=2)iss.push({sev:'warning',t:'<strong>Snooze habit.</strong> 3 to 5 snoozes fragments your final sleep cycle and leaves you groggier than one clean wake-up.'});
+  if(D.feel>=3)iss.push({sev:'critical',t:'<strong>Waking worse than before you slept.</strong> This can point to fragmented sleep, sleep apnea, or anxiety-driven restless sleep. Worth talking to a doctor if it persists.'});
+  else if(D.feel>=2)iss.push({sev:'warning',t:'<strong>Morning grogginess until noon.</strong> Your alarm is likely pulling you out of deep sleep. Your circadian rhythm needs to shift or your bedtime needs to move earlier.'});
+  if(iss.length===0)iss.push({sev:'info',t:'<strong>No major issues.</strong> Your sleep hygiene is solid. Focus on staying consistent night after night.'});
 
   go('results');
 
