@@ -433,6 +433,152 @@ section{padding-top:64px;padding-bottom:64px}
 /* Product artifacts: each feature has its own believable little world. */
 .sc-preview:has(.artifact)::before,.sc-preview:has(.artifact)::after{display:none}.artifact{position:absolute;inset:14px;overflow:hidden;border:1px solid rgba(255,255,255,.16);border-radius:12px;background:rgba(7,8,19,.36);padding:14px;text-align:left;color:#f5f1ff;font-family:'Inter',sans-serif;letter-spacing:0}.artifact-label{font:500 8px 'JetBrains Mono';letter-spacing:.13em;color:#aaa1c1;text-transform:uppercase}.artifact-time{margin:7px 0 12px;font:800 30px 'Plus Jakarta Sans';letter-spacing:-.06em;line-height:1}.artifact-muted{font-size:9px;color:#b6afc7}.lock-orb{width:52px;height:52px;margin:9px auto;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle,#d7c3ff 0 20%,#6c51bf 23% 28%,rgba(112,81,190,.16) 31% 58%,transparent 60%);font-size:16px;box-shadow:0 0 30px rgba(159,117,255,.45)}.artifact-center{text-align:center}.artifact-rule{height:5px;border-radius:9px;background:rgba(255,255,255,.1);margin-top:9px;overflow:hidden}.artifact-rule i{display:block;height:100%;width:72%;background:linear-gradient(90deg,#aa8df7,#f0c18a);border-radius:inherit}.score-row{display:flex;align-items:end;justify-content:space-between;margin:12px 0}.score-big{font:800 34px 'Plus Jakarta Sans';letter-spacing:-.08em;color:#ddfff8}.score-streak{padding:6px 8px;border-radius:8px;background:rgba(135,234,208,.12);font:700 9px 'JetBrains Mono';color:#b3ffe8}.bars{height:35px;display:flex;align-items:end;gap:5px}.bars i{width:10px;border-radius:4px 4px 2px 2px;background:linear-gradient(#8debd3,#4f7baf)}.city-map{position:absolute;inset:0;background:radial-gradient(circle at 75% 20%,rgba(255,189,110,.18),transparent 32%),linear-gradient(135deg,transparent 30%,rgba(255,255,255,.07) 30% 32%,transparent 32% 58%,rgba(255,255,255,.06) 58% 60%,transparent 60%)}.city-route{position:absolute;left:19%;top:28%;width:63%;height:42%;border:2px dashed #f6bf7c;border-radius:50%;transform:rotate(-14deg)}.city-pin{position:absolute;width:17px;height:17px;border-radius:50% 50% 50% 0;background:#ffc47d;transform:rotate(-45deg);box-shadow:0 0 18px rgba(255,187,110,.6)}.city-pin:after{content:'';position:absolute;width:6px;height:6px;border-radius:50%;background:#29172a;top:5px;left:5px}.city-one{left:19%;bottom:22%}.city-two{right:20%;top:21%}.city-caption{position:absolute;left:13px;bottom:11px;font:700 9px 'JetBrains Mono';color:#ffe5bf}.avatars{display:flex;margin:15px 0 10px}.avatar{width:31px;height:31px;margin-right:-7px;border:2px solid #101025;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#ffb48f,#8755c8);font-size:12px}.squad-line{padding:8px;border-radius:8px;background:rgba(255,255,255,.08);font-size:9px}.chrono{width:76px;height:76px;margin:4px auto 8px;border-radius:50%;border:7px solid rgba(255,225,169,.16);border-top-color:#ffdaa2;border-right-color:#ffdaa2;transform:rotate(38deg);box-shadow:0 0 20px rgba(255,190,115,.2)}.chrono-copy{text-align:center;font-size:10px;color:#f8d7ae}.confession{margin-top:13px;padding:11px;border-radius:10px;background:rgba(255,255,255,.09);font:500 10px/1.5 'Inter';color:#e6dff0}.confession b{display:block;margin-top:7px;font:500 8px 'JetBrains Mono';letter-spacing:.08em;color:#d2bdfc}
 @media(max-width:700px){section{padding:52px 20px}.stack-card{padding:25px 21px;min-height:auto}.sc-preview{min-height:145px}.counter{padding:20px 8px}.footer-w{padding:32px 22px 24px}.hero{min-height:88vh}}
+
+/* ═══ TIME CHIP — right now, in the visitor's timezone ═══ */
+.time-chip{position:fixed;top:80px;right:24px;z-index:150;padding:8px 14px;border-radius:100px;
+background:rgba(4,4,8,0.85);backdrop-filter:blur(20px);border:1px solid rgba(124,92,246,0.15);
+font-family:'JetBrains Mono';font-size:10px;color:#9691af;letter-spacing:0.04em;
+display:flex;align-items:center;gap:8px;transition:all 0.6s cubic-bezier(0.16,1,0.3,1);
+opacity:0;transform:translateY(-8px);pointer-events:none;white-space:nowrap}
+.time-chip.show{opacity:1;transform:translateY(0)}
+.time-chip::before{content:'';width:6px;height:6px;border-radius:50%;background:#7c5cf6;
+box-shadow:0 0 10px #7c5cf6;animation:pulse-dot 2s ease-in-out infinite;flex-shrink:0}
+.time-chip .tc-msg{color:#7c5cf6;opacity:0.9}
+.time-chip.late{border-color:rgba(255,90,90,0.35);color:#ff9a9a;background:rgba(30,8,10,0.85)}
+.time-chip.late::before{background:#ff5555;box-shadow:0 0 12px #ff5555}
+.time-chip.late .tc-msg{color:#ff8a8a}
+.time-chip.dawn{border-color:rgba(255,183,110,0.35);color:#ffcb92;background:rgba(30,20,10,0.85)}
+.time-chip.dawn::before{background:#ffb96e;box-shadow:0 0 10px #ffb96e}
+.time-chip.dawn .tc-msg{color:#ffb96e}
+@keyframes pulse-dot{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.4);opacity:0.5}}
+@media(max-width:768px){.time-chip{top:auto;bottom:14px;right:12px;font-size:9px;padding:6px 10px;gap:6px}}
+
+/* ═══ CURSOR: FIREFLY (night) / SPARROW (dawn) ═══ */
+.cursor-fx{position:fixed;pointer-events:none;z-index:100;transform:translate(-50%,-50%);
+transition:opacity 0.7s;opacity:0;display:none;will-change:transform,left,top}
+@media(hover:hover)and(pointer:fine){.cursor-fx{display:block}}
+.cursor-fx.on{opacity:1}
+#firefly{width:8px;height:8px;border-radius:50%;background:#ffde9a;
+box-shadow:0 0 12px #ffb96e,0 0 24px rgba(255,180,90,0.6),0 0 40px rgba(255,150,60,0.3);
+animation:firefly-pulse 1.6s ease-in-out infinite}
+@keyframes firefly-pulse{0%,100%{opacity:0.5;transform:translate(-50%,-50%) scale(0.8)}
+50%{opacity:1;transform:translate(-50%,-50%) scale(1.2)}}
+#sparrow{width:22px;height:16px;color:#3a2818;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.3))}
+#sparrow svg{width:100%;height:100%;animation:sparrow-flap 0.35s ease-in-out infinite alternate;transform-origin:center}
+@keyframes sparrow-flap{from{transform:scaleY(1)}to{transform:scaleY(0.55)}}
+
+/* ═══ STACK CARD LOCKING ═══ */
+.stack-card{transition:box-shadow 0.55s cubic-bezier(0.16,1,0.3,1),transform 0.5s,border-color 0.5s}
+.card-lock-icon{position:absolute;top:18px;right:18px;width:26px;height:26px;border-radius:7px;
+background:rgba(124,92,246,0.15);border:1px solid rgba(124,92,246,0.35);
+display:flex;align-items:center;justify-content:center;
+opacity:0;transform:translateX(14px) scale(0.7);
+transition:all 0.55s cubic-bezier(0.16,1,0.3,1);color:#c4b1ff;font-size:11px;z-index:6;pointer-events:none}
+.stack-card.locked .card-lock-icon{opacity:1;transform:translateX(0) scale(1)}
+.stack-card.locked{border-color:rgba(196,177,255,.42)!important;
+box-shadow:0 34px 100px rgba(5,3,18,.55),0 0 0 1px rgba(196,177,255,.35),0 0 40px rgba(124,92,246,0.2)!important}
+@keyframes lock-flash{0%{box-shadow:0 34px 100px rgba(5,3,18,.55),0 0 0 1px rgba(196,177,255,.35)}
+40%{box-shadow:0 34px 100px rgba(5,3,18,.55),0 0 0 2px rgba(196,177,255,.7),0 0 60px rgba(124,92,246,0.5)}
+100%{box-shadow:0 34px 100px rgba(5,3,18,.55),0 0 0 1px rgba(196,177,255,.35),0 0 40px rgba(124,92,246,0.2)}}
+.stack-card.just-locked{animation:lock-flash 0.9s ease-out}
+
+/* Artifacts alive — animate previews when card locks in */
+.stack-card .sc-preview::after{transition:all 0.7s cubic-bezier(0.16,1,0.3,1)}
+.stack-card.locked .sc-preview::after{filter:drop-shadow(0 0 25px rgba(255,179,103,0.7)) brightness(1.15)}
+.stack-card.locked:nth-child(1) .sc-preview::after{animation:artifact-glow 2s ease-in-out infinite}
+.stack-card.locked:nth-child(2) .sc-preview::after{animation:artifact-count 2.4s ease-in-out infinite}
+.stack-card.locked:nth-child(3) .sc-preview::after{animation:artifact-ping 1.8s ease-out infinite}
+.stack-card.locked:nth-child(4) .sc-preview::after{animation:artifact-bump 1.6s ease-in-out infinite}
+.stack-card.locked:nth-child(5) .sc-preview::after{animation:artifact-orbit 4s linear infinite}
+.stack-card.locked:nth-child(6) .sc-preview::after{animation:artifact-drift 1.8s ease-in-out infinite}
+@keyframes artifact-glow{0%,100%{transform:scale(1) rotate(0deg);text-shadow:0 0 20px rgba(255,179,103,0.5)}
+50%{transform:scale(1.15) rotate(5deg);text-shadow:0 0 40px rgba(255,179,103,0.9)}}
+@keyframes artifact-count{0%{transform:scale(1);color:#dfffff}50%{transform:scale(1.2);color:#a0ffe8}100%{transform:scale(1);color:#dfffff}}
+@keyframes artifact-ping{0%,100%{transform:scale(1)}30%{transform:scale(1.35)}60%{transform:scale(0.95)}}
+@keyframes artifact-bump{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-4px) scale(1.1)}}
+@keyframes artifact-orbit{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes artifact-drift{0%,100%{transform:translateX(0)}50%{transform:translateX(6px)}}
+.stack-card.locked .sc-preview::before{animation:scan-flicker 3s ease-in-out infinite}
+@keyframes scan-flicker{0%,100%{opacity:1}45%{opacity:0.75}50%{opacity:1}}
+
+/* ═══ MOON FILL ON HOLD CTA ═══ */
+.hero-cta.hold-cta .moon{display:inline-block;width:16px;height:16px;border-radius:50%;
+background:conic-gradient(from -90deg,#ffd8a0 calc(var(--hold)*1%),rgba(255,216,160,0.18) calc(var(--hold)*1%));
+vertical-align:middle;margin-right:8px;position:relative;top:-1px;
+transition:box-shadow 0.4s,background-color 0.3s;box-shadow:0 0 0 rgba(255,216,160,0);flex-shrink:0}
+.hero-cta.hold-cta .moon::after{content:'';position:absolute;inset:2px;border-radius:50%;
+background:radial-gradient(circle at 30% 30%,rgba(255,255,255,0.25),transparent 60%);pointer-events:none}
+.hero-cta.hold-cta.is-holding .moon{box-shadow:0 0 15px rgba(255,216,160,0.4)}
+.hero-cta.hold-cta.is-unlocked .moon{background:#ffd8a0;box-shadow:0 0 25px rgba(255,216,160,0.8)}
+.hero-cta.hold-cta.moon-shatter{animation:cta-shake 0.4s ease}
+@keyframes cta-shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+
+/* ═══ DOOMSCROLL TRAP SECTION ═══ */
+.doom-sec{padding:80px 24px 90px;position:relative;z-index:1}
+.doom-phone{display:flex;justify-content:center;margin-top:44px;perspective:1200px}
+.doom-frame{position:relative;width:290px;height:520px;border-radius:36px;
+background:#0a0a14;border:8px solid #14141f;
+box-shadow:0 45px 90px rgba(0,0,0,0.6),0 0 60px rgba(124,92,246,0.18),0 0 0 1px rgba(255,255,255,0.05);
+overflow:hidden;transform:rotateX(4deg) rotateY(-3deg)}
+.doom-notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:100px;height:22px;
+background:#000;border-radius:0 0 18px 18px;z-index:5}
+.doom-status{position:absolute;top:5px;left:0;right:0;padding:0 20px;display:flex;
+justify-content:space-between;font-family:'JetBrains Mono';font-size:9px;color:#7c5cf6;z-index:6;font-weight:600}
+.doom-scroll{width:100%;height:100%;overflow:hidden;position:relative;padding-top:32px}
+.doom-scroll-inner{display:flex;flex-direction:column;will-change:transform}
+.reel{width:100%;flex-shrink:0;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,0.03);display:flex;flex-direction:column;gap:6px}
+.reel-head{display:flex;align-items:center;gap:8px}
+.reel-avatar{width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#7c5cf6,#a78bfa);flex-shrink:0}
+.reel-user{font-size:10px;color:#ccc8e0;font-weight:600;font-family:'Inter'}
+.reel-user span{color:#7c5cf6;font-family:'JetBrains Mono';font-size:8px;margin-left:4px}
+.reel-video{height:180px;border-radius:10px;position:relative;overflow:hidden;
+display:flex;align-items:center;justify-content:center;
+background:linear-gradient(135deg,rgba(124,92,246,0.15),rgba(6,182,212,0.1)),linear-gradient(45deg,#1a1226,#0a0a14)}
+.reel-video::before{content:'';position:absolute;inset:0;background:
+radial-gradient(circle at 30% 30%,rgba(255,255,255,0.05),transparent 40%),
+radial-gradient(circle at 70% 70%,rgba(124,92,246,0.15),transparent 50%)}
+.reel-video::after{content:'▶';font-size:36px;color:rgba(255,255,255,0.4);position:relative;z-index:1}
+.reel-caption{font-size:9.5px;color:#b8b4d0;line-height:1.5}
+.reel-caption b{color:#ccc8e0}
+.reel-actions{display:flex;gap:12px;font-family:'JetBrains Mono';font-size:9px;color:#7c5cf6}
+.doom-overlay{position:absolute;inset:0;z-index:10;
+background:radial-gradient(circle,rgba(180,20,20,0.35),rgba(4,4,8,0.96));
+display:flex;align-items:center;justify-content:center;
+opacity:0;pointer-events:none;transition:opacity 0.6s;backdrop-filter:blur(6px)}
+.doom-overlay.show{opacity:1;pointer-events:auto}
+.doom-msg{text-align:center;padding:0 24px}
+.doom-time{font-family:'Plus Jakarta Sans';font-size:56px;font-weight:800;color:#ff6b6b;
+letter-spacing:-0.05em;line-height:1;text-shadow:0 0 30px rgba(255,107,107,0.4)}
+.doom-lbl{font-family:'Inter';font-size:14px;color:#ccc8e0;margin-top:8px;font-weight:500;line-height:1.4}
+.doom-note{margin-top:18px;padding:8px 16px;border-radius:100px;
+background:rgba(124,92,246,0.15);border:1px solid rgba(124,92,246,0.4);
+font-family:'JetBrains Mono';font-size:9px;color:#c4b1ff;letter-spacing:0.12em;text-transform:uppercase;display:inline-block}
+.doom-caption{max-width:520px;margin:34px auto 0;text-align:center;
+font-family:'Inter';font-size:14px;color:#87829d;line-height:1.7;font-weight:300}
+.doom-caption strong{color:#c4b1ff;font-weight:500}
+@media(max-width:768px){.doom-frame{width:260px;height:470px}}
+
+/* ═══ CONFESSIONS TICKER ═══ */
+.ticker-strip{position:relative;overflow:hidden;padding:16px 0 18px;
+border-top:1px solid rgba(124,92,246,0.1);border-bottom:1px solid rgba(124,92,246,0.1);
+background:rgba(4,4,8,0.55);backdrop-filter:blur(20px);z-index:2}
+.ticker-lbl{font-family:'JetBrains Mono';font-size:9px;letter-spacing:0.18em;color:#7c5cf6;
+text-align:center;margin-bottom:12px;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:8px}
+.ticker-lbl::before,.ticker-lbl::after{content:'';width:36px;height:1px;background:linear-gradient(90deg,transparent,rgba(124,92,246,0.4))}
+.ticker-lbl::after{background:linear-gradient(90deg,rgba(124,92,246,0.4),transparent)}
+.ticker-lbl-dot{width:6px;height:6px;border-radius:50%;background:#7c5cf6;
+box-shadow:0 0 10px #7c5cf6;animation:pulse-dot 2s ease-in-out infinite}
+.ticker-track{overflow:hidden;position:relative;height:22px;
+mask-image:linear-gradient(90deg,transparent,black 8%,black 92%,transparent);
+-webkit-mask-image:linear-gradient(90deg,transparent,black 8%,black 92%,transparent)}
+.ticker-inner{display:flex;gap:44px;animation:ticker-crawl 80s linear infinite;
+white-space:nowrap;font-size:12.5px;color:#9691af;font-family:'Inter';font-weight:300}
+.ticker-inner:hover{animation-play-state:paused}
+.ticker-item{display:inline-flex;align-items:center;gap:10px;font-style:italic;flex-shrink:0}
+.ticker-item::before{content:'';width:5px;height:5px;border-radius:50%;background:rgba(124,92,246,0.6);flex-shrink:0}
+.ticker-city{font-style:normal;color:#7c5cf6;font-family:'JetBrains Mono';font-size:9px;
+letter-spacing:0.1em;text-transform:uppercase;margin-right:6px}
+@keyframes ticker-crawl{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 </style>
 </head>
 <body>
@@ -440,6 +586,9 @@ section{padding-top:64px;padding-bottom:64px}
 <div class="grid-bg"></div>
 <div class="mesh"><div class="mesh-orb"></div><div class="mesh-orb"></div><div class="mesh-orb"></div></div>
 <div id="glow"></div>
+<div class="cursor-fx" id="firefly"></div>
+<div class="cursor-fx" id="sparrow"><svg viewBox="0 0 22 16" xmlns="http://www.w3.org/2000/svg"><path d="M1 8 Q6 3 11 6 Q16 3 21 8 Q16 6 11 8 Q6 6 1 8 Z" fill="currentColor"/></svg></div>
+<div class="time-chip" id="timeChip"></div>
 
 <nav>
   <div class="n-brand">
@@ -471,7 +620,7 @@ section{padding-top:64px;padding-bottom:64px}
   <h1>Your phone wins<br><span class="glow">every night.</span></h1>
   <div class="hero-lock">lock in.</div>
   <p class="hero-sub">You tell yourself "last reel" every night. Then it's 2 AM. Skar kills the scroll, locks the screen, and wakes you up like you mean it. <strong>No willpower needed.</strong></p>
-  <a href="#waitlist" class="hero-cta hold-cta" id="holdCta" aria-label="Hold for two seconds to unlock the waitlist">Hold to lock in <span aria-hidden="true">→</span></a>
+  <a href="#waitlist" class="hero-cta hold-cta" id="holdCta" aria-label="Hold for two seconds to unlock the waitlist"><span class="moon" aria-hidden="true"></span>Hold to lock in <span aria-hidden="true">→</span></a>
   <div class="hero-note">Launching soon</div>
 </header>
 
@@ -498,6 +647,7 @@ section{padding-top:64px;padding-bottom:64px}
           <div class="sc-cta">See how it works <em>&rarr;</em></div>
         </div>
         <div class="sc-preview">SCREENSHOT</div>
+        <div class="card-lock-icon" aria-hidden="true"><svg width="11" height="12" viewBox="0 0 11 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="1.5" y="5" width="8" height="6" rx="1"/><path d="M3 5V3.5a2.5 2.5 0 015 0V5"/></svg></div>
       </div>
       <div class="stack-card" onclick="openModal('score')">
         <div>
@@ -508,6 +658,7 @@ section{padding-top:64px;padding-bottom:64px}
           <div class="sc-cta">See your score <em>&rarr;</em></div>
         </div>
         <div class="sc-preview">SCREENSHOT</div>
+        <div class="card-lock-icon" aria-hidden="true"><svg width="11" height="12" viewBox="0 0 11 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="1.5" y="5" width="8" height="6" rx="1"/><path d="M3 5V3.5a2.5 2.5 0 015 0V5"/></svg></div>
       </div>
       <div class="stack-card" onclick="openModal('city')">
         <div>
@@ -518,6 +669,7 @@ section{padding-top:64px;padding-bottom:64px}
           <div class="sc-cta">Explore the map <em>&rarr;</em></div>
         </div>
         <div class="sc-preview">SCREENSHOT</div>
+        <div class="card-lock-icon" aria-hidden="true"><svg width="11" height="12" viewBox="0 0 11 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="1.5" y="5" width="8" height="6" rx="1"/><path d="M3 5V3.5a2.5 2.5 0 015 0V5"/></svg></div>
       </div>
       <div class="stack-card" onclick="openModal('squad')">
         <div>
@@ -528,6 +680,7 @@ section{padding-top:64px;padding-bottom:64px}
           <div class="sc-cta">Lock in together <em>&rarr;</em></div>
         </div>
         <div class="sc-preview">SCREENSHOT</div>
+        <div class="card-lock-icon" aria-hidden="true"><svg width="11" height="12" viewBox="0 0 11 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="1.5" y="5" width="8" height="6" rx="1"/><path d="M3 5V3.5a2.5 2.5 0 015 0V5"/></svg></div>
       </div>
       <div class="stack-card" onclick="openModal('genre')">
         <div>
@@ -538,6 +691,7 @@ section{padding-top:64px;padding-bottom:64px}
           <div class="sc-cta">Find your type <em>&rarr;</em></div>
         </div>
         <div class="sc-preview">SCREENSHOT</div>
+        <div class="card-lock-icon" aria-hidden="true"><svg width="11" height="12" viewBox="0 0 11 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="1.5" y="5" width="8" height="6" rx="1"/><path d="M3 5V3.5a2.5 2.5 0 015 0V5"/></svg></div>
       </div>
       <div class="stack-card" onclick="openModal('confessions')">
         <div>
@@ -548,6 +702,7 @@ section{padding-top:64px;padding-bottom:64px}
           <div class="sc-cta">Read confessions <em>&rarr;</em></div>
         </div>
         <div class="sc-preview">SCREENSHOT</div>
+        <div class="card-lock-icon" aria-hidden="true"><svg width="11" height="12" viewBox="0 0 11 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="1.5" y="5" width="8" height="6" rx="1"/><path d="M3 5V3.5a2.5 2.5 0 015 0V5"/></svg></div>
       </div>
     </div>
   </div>
@@ -577,6 +732,31 @@ section{padding-top:64px;padding-bottom:64px}
 
 <hr class="ln">
 
+<section id="doom" class="doom-sec">
+  <div class="inner">
+    <div class="slbl rv">Recognize this?</div>
+    <h2 class="sh rv rv1">This is what happens every night.</h2>
+    <p class="sd rv rv2">Watch this feed. Try not to keep watching. See how long you last.</p>
+    <div class="doom-phone rv rv3">
+      <div class="doom-frame">
+        <div class="doom-notch"></div>
+        <div class="doom-status"><span>11:47 PM</span><span>&#9679; &#9679; &#9679;</span></div>
+        <div class="doom-scroll" id="doomScroll"></div>
+        <div class="doom-overlay" id="doomOverlay">
+          <div class="doom-msg">
+            <div class="doom-time" id="doomTime">0.0s</div>
+            <div class="doom-lbl">of your life on autopilot.</div>
+            <div class="doom-note">This is what Skar stops</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="doom-caption rv rv4">You did not decide to keep watching. <strong>Your thumb did.</strong> Multiply this by every night, every year. That is the debt Skar collects for you.</p>
+  </div>
+</section>
+
+<hr class="ln">
+
 <section id="how">
   <div class="inner">
     <div class="slbl rv">How it works</div>
@@ -590,7 +770,10 @@ section{padding-top:64px;padding-bottom:64px}
   </div>
 </section>
 
-<hr class="ln">
+<div class="ticker-strip">
+  <div class="ticker-lbl"><span class="ticker-lbl-dot"></span>Confessions &middot; last 24 hours<span class="ticker-lbl-dot"></span></div>
+  <div class="ticker-track"><div class="ticker-inner" id="tickerInner"></div></div>
+</div>
 
 <section id="waitlist" class="wl bg2">
   <h2 class="rv">Your next 30 days start tonight.</h2>
@@ -1235,6 +1418,181 @@ btn.addEventListener('click',function(){btn.classList.toggle('open');menu.classL
 document.body.style.overflow=menu.classList.contains('open')?'hidden':'';});
 menu.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){
 btn.classList.remove('open');menu.classList.remove('open');document.body.style.overflow='';});});})();
+
+// ═══ TIME CHIP — right now, judgy after 11 PM ═══
+(function(){
+  var chip=document.getElementById('timeChip');
+  if(!chip)return;
+  function fmt(n){return n<10?'0'+n:''+n;}
+  function upd(){
+    var d=new Date(),h=d.getHours(),m=d.getMinutes();
+    var h12=h===0?12:h>12?h-12:h;
+    var t=h12+':'+fmt(m)+' '+(h>=12?'PM':'AM');
+    var msg,cls='';
+    if(h>=23||h<5){msg='you should be asleep';cls='late';}
+    else if(h>=5&&h<8){msg='morning discipline';cls='dawn';}
+    else if(h>=21&&h<23){msg='wind down window';cls='dawn';}
+    else{msg='no judgment · yet';}
+    chip.className='time-chip'+(cls?' '+cls:'');
+    chip.innerHTML=t+' <span class="tc-msg">&middot; '+msg+'</span>';
+    requestAnimationFrame(function(){chip.classList.add('show');});
+  }
+  setTimeout(upd,1200);
+  setInterval(upd,30000);
+})();
+
+// ═══ CURSOR FIREFLY (night) / SPARROW (dawn) ═══
+(function(){
+  if(!window.matchMedia('(hover:hover) and (pointer:fine)').matches)return;
+  var firefly=document.getElementById('firefly'),sparrow=document.getElementById('sparrow');
+  if(!firefly||!sparrow)return;
+  var mx=0,my=0,fx=0,fy=0,sx=0,sy=0,mode='none';
+  document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;},{passive:true});
+  function tick(){
+    // lag for whimsy
+    fx+=(mx-fx)*0.18;fy+=(my-fy)*0.18;
+    sx+=(mx-sx)*0.09;sy+=(my-sy)*0.09;
+    firefly.style.left=fx+'px';firefly.style.top=(fy-14)+'px';
+    sparrow.style.left=sx+'px';sparrow.style.top=(sy-22)+'px';
+    requestAnimationFrame(tick);
+  }
+  tick();
+  function updMode(){
+    var ratio=window.scrollY/Math.max(1,document.documentElement.scrollHeight-window.innerHeight);
+    var next=ratio<0.35?'firefly':(ratio<0.7?'none':'sparrow');
+    if(next===mode)return;mode=next;
+    firefly.classList.toggle('on',mode==='firefly');
+    sparrow.classList.toggle('on',mode==='sparrow');
+  }
+  updMode();
+  window.addEventListener('scroll',updMode,{passive:true});
+})();
+
+// ═══ CARD LOCK DETECTOR ═══
+(function(){
+  var cards=document.querySelectorAll('.stack-card');
+  if(!cards.length)return;
+  var lastLocked=new Set();
+  function check(){
+    cards.forEach(function(card,i){
+      var stickyTop=80+i*20;
+      if(window.innerWidth<=768)stickyTop=70+i*15;
+      var rect=card.getBoundingClientRect();
+      var wasLocked=card.classList.contains('locked');
+      var isLocked=rect.top<=stickyTop+8&&rect.bottom>200;
+      if(isLocked&&!wasLocked){
+        card.classList.add('locked');
+        card.classList.add('just-locked');
+        setTimeout(function(){card.classList.remove('just-locked');},900);
+      }else if(!isLocked&&wasLocked){
+        card.classList.remove('locked');
+      }
+    });
+  }
+  var ticking=false;
+  window.addEventListener('scroll',function(){
+    if(!ticking){requestAnimationFrame(function(){check();ticking=false;});ticking=true;}
+  },{passive:true});
+  check();
+})();
+
+// ═══ MOON SHATTER — hero CTA released early ═══
+(function(){
+  var cta=document.getElementById('holdCta');
+  if(!cta)return;
+  ['pointerup','pointerleave','pointercancel'].forEach(function(type){
+    cta.addEventListener(type,function(){
+      if(cta.classList.contains('is-unlocked'))return;
+      var hold=parseInt(cta.style.getPropertyValue('--hold')||'0');
+      if(hold>15&&hold<100){
+        cta.classList.add('moon-shatter');
+        setTimeout(function(){cta.classList.remove('moon-shatter');},400);
+      }
+    });
+  });
+})();
+
+// ═══ DOOMSCROLL TRAP ═══
+(function(){
+  var scroll=document.getElementById('doomScroll');
+  if(!scroll)return;
+  var reels=[
+    {u:'reels_daily',c:'<b>Dance trend</b> that everyone is doing today',v:'💃'},
+    {u:'football_takes',c:'<b>Ranking</b> midfielders you have never watched',v:'⚽'},
+    {u:'unbox_king',c:'<b>Unboxing</b> a phone worth 3 months of your salary',v:'📱'},
+    {u:'gym_bros',c:'<b>Before / after</b> six months of the same lie',v:'💪'},
+    {u:'anime_ceo',c:'Why <b>this shonen protagonist</b> is actually you',v:'⚔️'},
+    {u:'foodie_delhi',c:'The <b>chai spot</b> that changed my morning forever',v:'🍵'},
+    {u:'startup_bro',c:'<b>3 habits</b> every 6-figure founder does at 5 AM',v:'📊'},
+    {u:'meme_lord',c:'<b>Screenshot</b> of a chat that ended a friendship',v:'😭'}
+  ];
+  var inner=document.createElement('div');inner.className='doom-scroll-inner';
+  for(var pass=0;pass<3;pass++){
+    reels.forEach(function(r,i){
+      var reel=document.createElement('div');reel.className='reel';
+      reel.innerHTML='<div class="reel-head"><div class="reel-avatar"></div>'+
+        '<div class="reel-user">@'+r.u+'<span>&middot; '+(2+i)+'h</span></div></div>'+
+        '<div class="reel-video">'+r.v+'</div>'+
+        '<div class="reel-caption">'+r.c+'</div>'+
+        '<div class="reel-actions">&#9825; '+(20+Math.floor(Math.random()*80))+'K &middot; '+
+        '&#128172; '+(1+Math.floor(Math.random()*8))+'K &middot; &#8599;</div>';
+      inner.appendChild(reel);
+    });
+  }
+  scroll.appendChild(inner);
+  var running=false,startTime=0,triggered=false,offset=0;
+  var overlay=document.getElementById('doomOverlay'),timeEl=document.getElementById('doomTime');
+  function anim(ts){
+    if(!running)return;
+    if(!startTime)startTime=ts;
+    var elapsed=(ts-startTime)/1000;
+    offset=elapsed*42;
+    inner.style.transform='translateY('+(-offset)+'px)';
+    if(timeEl)timeEl.textContent=elapsed.toFixed(1)+'s';
+    if(elapsed>=4.5){
+      running=false;
+      if(overlay)overlay.classList.add('show');
+      return;
+    }
+    requestAnimationFrame(anim);
+  }
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting&&!triggered){
+        triggered=true;
+        setTimeout(function(){running=true;requestAnimationFrame(anim);},500);
+      }
+    });
+  },{threshold:0.4});
+  obs.observe(scroll);
+})();
+
+// ═══ CONFESSIONS TICKER ═══
+(function(){
+  var track=document.getElementById('tickerInner');
+  if(!track)return;
+  var items=[
+    {c:'Mumbai',t:'Told myself just one more reel. It was 2 AM.'},
+    {c:'Delhi',t:'Watched three reels back to back and forgot I had work in 5 hours.'},
+    {c:'Bengaluru',t:'Broke lockdown at 1 AM for a text that could have waited.'},
+    {c:'Hyderabad',t:'Skipped morning ritual. Whole day felt off.'},
+    {c:'Chennai',t:'Set alarm for 6. Snoozed until 9. Told my mom I woke up early.'},
+    {c:'Pune',t:'Anxiety hit hard. Doom-scrolled instead of sleeping.'},
+    {c:'Kolkata',t:'Watched an entire wedding I was not invited to.'},
+    {c:'Jaipur',t:'Convinced myself I was researching. I was watching cat videos.'},
+    {c:'Ahmedabad',t:'One YouTube tab became eleven. It is now 4 AM.'},
+    {c:'Lucknow',t:'Told my group chat I was sleeping. Then I opened Instagram.'},
+    {c:'Chandigarh',t:'Watched two hours of ranking videos. Ranked nothing myself.'},
+    {c:'Kochi',t:'Woke up with the phone on my face. Again.'}
+  ];
+  function build(){
+    return items.map(function(x){
+      return '<div class="ticker-item"><span class="ticker-city">'+x.c+'</span>&ldquo;'+x.t+'&rdquo;</div>';
+    }).join('');
+  }
+  // duplicate for seamless loop
+  track.innerHTML=build()+build();
+})();
 </script>
 <script src="https://tally.so/widgets/embed.js" async></script>
 </body>
