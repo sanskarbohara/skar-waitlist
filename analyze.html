@@ -469,8 +469,8 @@ display:flex;align-items:center;justify-content:center;color:#9691af;transition:
     <div class="r-grid">
       <div class="r-card"><div class="r-lbl">CHRONOTYPE</div><div class="r-val" id="cName"></div><div class="r-sub" id="cDesc"></div></div>
       <div class="r-card"><div class="r-lbl">SLEEP DURATION</div><div class="r-val" id="dVal"></div><div class="r-sub" id="dDesc"></div></div>
-      <div class="r-card"><div class="r-lbl">IDEAL BEDTIME</div><div class="r-val" id="iBed"></div><div class="r-sub">Based on your chronotype</div></div>
-      <div class="r-card"><div class="r-lbl">IDEAL WAKE TIME</div><div class="r-val" id="iWake"></div><div class="r-sub">5 full 90-min sleep cycles</div></div>
+      <div class="r-card"><div class="r-lbl">IDEAL BEDTIME</div><div class="r-val" id="iBed"></div><div class="r-sub" id="iBedSub"></div></div>
+      <div class="r-card"><div class="r-lbl">IDEAL WAKE TIME</div><div class="r-val" id="iWake"></div><div class="r-sub" id="iWakeSub"></div></div>
     </div>
     <div class="r-issues">
       <div class="r-issues-title">WHAT WE FOUND</div>
@@ -628,46 +628,131 @@ function showResults(){
   var durTxt=sH+'h'+(sM>0?' '+sM+'m':'');
   var durD=sl>=420&&sl<=540?'Within optimal 7–9 hour range':sl<420?'Below the recommended 7 hours':'Above recommended 9 hours';
 
-  var sc=100;
-  if(sl<300)sc-=30;else if(sl<360)sc-=20;else if(sl<420)sc-=10;else if(sl<=540)sc-=0;else if(sl<=600)sc-=5;else sc-=12;
   var bH24=Math.floor(bT/60);if(bH24>=24)bH24-=24;
-  if(bH24>=1&&bH24<5)sc-=22;else if(bH24===0)sc-=15;else if(bH24===23)sc-=8;
-  sc-=[0,8,18,28][D.screen||0];
-  sc-=[0,5,12,22][D.snooze||0];
-  sc-=[0,5,14,20][D.feel||0];
+  var wH24=Math.floor(wT/60);if(wH24>=24)wH24-=24;
+
+  // ═══ SCORE — based on adult sleep science (NIH, National Sleep Foundation) ═══
+  var sc=100;
+
+  // Duration — 7-9 hrs optimal for adults, sweet spot 7.5-8.5
+  if(sl<300)sc-=32;        // <5 hrs: severe deprivation
+  else if(sl<360)sc-=22;   // 5-6 hrs: significant deficit
+  else if(sl<420)sc-=10;   // 6-7 hrs: slight deficit
+  else if(sl<=540)sc-=0;   // 7-9 hrs: OPTIMAL
+  else if(sl<=600)sc-=4;   // 9-10 hrs: slightly over
+  else if(sl<=660)sc-=10;  // 10-11 hrs: over, possible sleep debt recovery
+  else sc-=18;             // 11+ hrs: excessive, health flag
+
+  // Bedtime — DLMO (melatonin release) window is 9 PM to midnight for most adults
+  // Post-midnight compresses REM sleep because REM concentrates in the last third of the night
+  if(bH24>=3&&bH24<6)sc-=25;         // 3-6 AM: severe circadian disruption
+  else if(bH24>=1&&bH24<3)sc-=18;    // 1-3 AM: significant misalignment
+  else if(bH24===0)sc-=8;            // midnight: past optimal DLMO window
+  // 9 PM to 11:59 PM: 0 penalty — biological optimum
+  else if(bH24>=14&&bH24<19)sc-=5;   // 2-7 PM: unusual (shift work or nap-timing input)
+
+  // Screen exposure — blue-light melatonin research (Chang et al., Harvard 2015)
+  sc-=[0,6,14,25][D.screen||0];
+
+  // Snooze — sleep-inertia research; 0-2 snoozes normal, chronic snoozing signals debt
+  sc-=[0,3,10,20][D.snooze||0];
+
+  // Morning feel — subjective sleep quality; "worse than before" is a medical flag
+  sc-=[0,3,12,20][D.feel||0];
+
   sc=Math.max(5,Math.min(100,Math.round(sc)));
 
-  // CHRONOTYPE — based on Michael Breus's classification.
-  // Dolphin = restless/fragmented sleep (waking worse or heavy snoozing despite bedtime).
-  // Wolf = late natural bedtime. Lion = early natural bedtime. Bear = the middle 50%.
-  // Ideal windows are 7.5h (5 full 90-min sleep cycles) for real cycle alignment.
-  var ch,dolphinLikely=(D.feel>=3)||(D.feel>=2&&D.snooze>=2);
-  if(dolphinLikely)ch={n:'Light Dolphin',d:'Fragmented sleep. You are technically in bed long enough, but not truly resting. Quality is the fix, not quantity.',b:'10:30 PM',w:'6:00 AM'};
-  else if(bH24>=0&&bH24<5)ch={n:'Night Wolf',d:'You come alive after midnight. Mornings are war. Your body wants to sleep late — you just need to sleep enough.',b:'12:30 AM',w:'8:00 AM'};
-  else if(bH24===23)ch={n:'Night Wolf',d:'Slight night-owl tendency. Late bedtime, but you can be pulled earlier with the right routine.',b:'11:30 PM',w:'7:00 AM'};
-  else if(bH24>=19&&bH24<22)ch={n:'Early Lion',d:'Up before the world. Mornings are your zone. Protect them by sleeping earlier, not later.',b:'9:30 PM',w:'5:00 AM'};
-  else ch={n:'Steady Bear',d:'You follow the sun. Half the population is like you. Consistency is your superpower.',b:'10:30 PM',w:'6:00 AM'};
+  // ═══ CHRONOTYPE — Michael Breus's four-type model, multi-signal detection ═══
+  var wolfPts=0,lionPts=0,bearPts=2,dolphinPts=0; // Bear is the majority default
+  // Dolphin: quality issues regardless of bedtime
+  if(D.feel>=3)dolphinPts+=4;
+  if(D.feel>=2&&D.snooze>=2)dolphinPts+=2;
+  if(D.snooze>=3)dolphinPts+=1;
+  // Wolf: late natural bedtime
+  if(bH24>=0&&bH24<5)wolfPts+=4;
+  else if(bH24===23&&wH24>=8)wolfPts+=2;
+  // Lion: early natural bedtime + early wake
+  if(bH24>=19&&bH24<22)lionPts+=3;
+  if(wH24>=4&&wH24<=6)lionPts+=1;
+  // Bear: solar-aligned mid-range
+  if(bH24>=22&&bH24<=23)bearPts+=2;
+  if(wH24>=6&&wH24<=8)bearPts+=1;
 
+  var scores={dolphin:dolphinPts,wolf:wolfPts,lion:lionPts,bear:bearPts};
+  var topType='bear',topScore=-1;
+  ['dolphin','wolf','lion','bear'].forEach(function(t){if(scores[t]>topScore){topScore=scores[t];topType=t;}});
+
+  var chronoDefs={
+    dolphin:{n:'Light Dolphin',d:'You are a restless, fragmented sleeper. Time in bed does not equal true rest for you. Your fix is not more sleep — it is better sleep. Focus on wind-down routines, cool rooms, and complete darkness.'},
+    wolf:{n:'Night Wolf',d:'You are a natural night owl. Roughly 15 to 20 percent of adults share your pattern. Fighting your biology rarely works — meet it halfway with a slightly earlier target bedtime and protect your total hours.'},
+    lion:{n:'Early Lion',d:'You are wired for early mornings. Peak alertness before noon. Protect this edge by sleeping early and avoiding caffeine after lunch.'},
+    bear:{n:'Steady Bear',d:'You are solar-aligned. About half of adults share your pattern. Consistency is your superpower — same bedtime and wake time every day, including weekends.'}
+  };
+  var ch=chronoDefs[topType];
+
+  // ═══ PERSONALIZED IDEAL WINDOW — respects user data, does not push in wrong direction ═══
+  // Rule: anchor to whichever end (bedtime or wake time) is already in the biologically-optimal band
+  // If neither is optimal, calculate from chronotype default
+  var idealBedMin,idealWakeMin,idealSub;
+  var TARGET=480; // 8 hours (middle of NIH 7-9 range)
+
+  var bedOK=(bH24>=20&&bH24<=23); // 8 PM to just before midnight
+  var durationOK=(sl>=420&&sl<=540); // 7-9 hrs
+
+  if(bedOK&&durationOK){
+    // Already in the sweet spot — validate current pattern, do not move it
+    idealBedMin=bT; idealWakeMin=wT;
+    idealSub='You are already in the optimal window';
+  } else if(bedOK&&!durationOK){
+    // Bedtime is fine, duration is off — keep bedtime, recalc wake for 8 hrs
+    idealBedMin=bT; idealWakeMin=(bT+TARGET)%1440;
+    idealSub=(sl<420?'Add hours by waking later':'Trim hours by waking earlier');
+  } else if(!bedOK&&durationOK){
+    // Duration fine but bedtime off — shift the whole window earlier by chronotype
+    var chronoBedMap={wolf:23*60+30,lion:21*60+30,bear:22*60+30,dolphin:22*60+30};
+    idealBedMin=chronoBedMap[topType];
+    idealWakeMin=(idealBedMin+TARGET)%1440;
+    idealSub='Shift both times earlier for better circadian alignment';
+  } else {
+    // Bedtime and duration both off — chronotype-optimal window
+    var mapBed={wolf:23*60+30,lion:21*60+30,bear:22*60+30,dolphin:22*60+30};
+    idealBedMin=mapBed[topType];
+    idealWakeMin=(idealBedMin+TARGET)%1440;
+    idealSub='Optimal window for your chronotype';
+  }
+
+  function fmtMin(m){var h=Math.floor(m/60),mm=m%60,ap=h>=12?'PM':'AM',h12=h===0?12:h>12?h-12:h;return h12+':'+(mm<10?'0':'')+mm+' '+ap;}
+  ch.b=fmtMin(idealBedMin); ch.w=fmtMin(idealWakeMin);
+
+  // ═══ VERDICT ═══
   var vt,vd;
-  if(sc>=80){vt='Solid. But there is still upside.';vd='Your sleep is above average. A few tweaks could push you to peak performance.';}
-  else if(sc>=60){vt='Your sleep is costing you.';vd='You are losing focus, energy, and time every day. Fixing this is not about sleeping more — it is about sleeping right.';}
-  else if(sc>=40){vt='This is a real problem.';vd='Your phone is winning every night. Your mornings are suffering. This is fixable, but not with willpower alone.';}
-  else{vt='Your sleep is broken.';vd='You are running on fumes. The scrolling, the snoozing, the brain fog. It is a cycle and it will not fix itself.';}
+  if(sc>=85){vt='Excellent sleep.';vd='You are in the top tier. Your patterns align with what the science recommends. Maintain consistency and you keep this edge.';}
+  else if(sc>=70){vt='Solid, with room to grow.';vd='Your sleep is above average but not optimal. Small adjustments to bedtime, screen use, or morning routine will compound.';}
+  else if(sc>=50){vt='Your sleep is costing you.';vd='You are losing focus, energy, and immune function every day. Fixing this is not about sleeping more — it is about sleeping right.';}
+  else if(sc>=30){vt='This is a real problem.';vd='Your circadian rhythm is disrupted. Your body is not getting the restoration it needs. This is fixable, but not with willpower alone.';}
+  else{vt='Your sleep is critically broken.';vd='You are running on fumes. Multiple sleep systems are misaligned. This will worsen cognitive and metabolic health if not addressed.';}
 
-  // Determine issue severity
+  // ═══ ISSUES — flagged from the same data, ranked by severity ═══
   var iss=[];
-  if(sl<300)iss.push({sev:'critical',t:'<strong>Sleep duration: '+durTxt+'.</strong> Under 5 hours puts you at real risk. Adults 18-25 need 7 to 9 hours to run 4-6 full sleep cycles.'});
-  else if(sl<420)iss.push({sev:'critical',t:'<strong>Sleep duration: '+durTxt+'.</strong> You are running short of the 7 hour minimum. Your brain is not finishing enough REM cycles.'});
-  if(sl>600)iss.push({sev:'warning',t:'<strong>Oversleeping: '+durTxt+'.</strong> Sleeping over 10 hours regularly is often a sign of unrecovered sleep debt or low sleep quality.'});
-  if(bH24>=0&&bH24<5)iss.push({sev:'critical',t:'<strong>Very late bedtime.</strong> Going to bed after midnight pushes REM into your morning alarm window. You are cutting off the most restorative phase.'});
-  else if(bH24===23)iss.push({sev:'warning',t:'<strong>Late bedtime.</strong> Getting in bed after 11 PM shifts your circadian window later than most people your age.'});
-  if(D.screen>=3)iss.push({sev:'critical',t:'<strong>Over an hour of screens in bed.</strong> Blue light suppresses melatonin by up to 22 percent. Your brain does not know it is nighttime.'});
-  else if(D.screen>=2)iss.push({sev:'warning',t:'<strong>Screen time in bed.</strong> 30 to 60 minutes of scrolling delays sleep onset and reduces deep sleep.'});
-  if(D.snooze>=3)iss.push({sev:'critical',t:'<strong>Chronic snoozing.</strong> Losing count of snoozes is a strong signal of sleep debt. Each snooze restarts a sleep cycle you never finish.'});
-  else if(D.snooze>=2)iss.push({sev:'warning',t:'<strong>Snooze habit.</strong> 3 to 5 snoozes fragments your final sleep cycle and leaves you groggier than one clean wake-up.'});
-  if(D.feel>=3)iss.push({sev:'critical',t:'<strong>Waking worse than before you slept.</strong> This can point to fragmented sleep, sleep apnea, or anxiety-driven restless sleep. Worth talking to a doctor if it persists.'});
-  else if(D.feel>=2)iss.push({sev:'warning',t:'<strong>Morning grogginess until noon.</strong> Your alarm is likely pulling you out of deep sleep. Your circadian rhythm needs to shift or your bedtime needs to move earlier.'});
-  if(iss.length===0)iss.push({sev:'info',t:'<strong>No major issues.</strong> Your sleep hygiene is solid. Focus on staying consistent night after night.'});
+
+  if(sl<300)iss.push({sev:'critical',t:'<strong>Severe sleep deprivation: '+durTxt+'.</strong> Under 5 hours triggers measurable cognitive, immune, and metabolic decline within days. Adults need 7 to 9 hours to run 4 to 6 full sleep cycles.'});
+  else if(sl<420)iss.push({sev:'critical',t:'<strong>Under 7 hours: '+durTxt+'.</strong> You are cutting REM sleep short. REM concentrates in the final third of the night, which is exactly what gets lost when total sleep drops below 7 hours.'});
+  if(sl>660)iss.push({sev:'warning',t:'<strong>Regularly over 11 hours: '+durTxt+'.</strong> Chronic oversleeping can indicate underlying depression, sleep apnea, or unresolved sleep debt. Worth investigating if this is your average.'});
+  else if(sl>600)iss.push({sev:'info',t:'<strong>Slightly over the 9 hour range: '+durTxt+'.</strong> Could signal you are recovering from sleep debt or that your sleep quality is fragmented.'});
+
+  if(bH24>=1&&bH24<6)iss.push({sev:'critical',t:'<strong>Very late bedtime.</strong> Falling asleep after 1 AM compresses REM into your alarm window. You are losing the most restorative phase of sleep every night.'});
+  else if(bH24===0)iss.push({sev:'warning',t:'<strong>Midnight bedtime.</strong> Past the optimal melatonin release window (9 PM to midnight). Shifting 30 minutes earlier for one week is usually enough to reset.'});
+
+  if(D.screen>=3)iss.push({sev:'critical',t:'<strong>Over an hour of screens in bed.</strong> This level of blue-light exposure suppresses melatonin by up to 22 percent and delays sleep onset by 60 to 90 minutes.'});
+  else if(D.screen>=2)iss.push({sev:'warning',t:'<strong>30 to 60 minutes of screens in bed.</strong> Even moderate exposure measurably delays melatonin release and reduces the deep-sleep portion of your night.'});
+
+  if(D.snooze>=3)iss.push({sev:'critical',t:'<strong>Chronic snoozing.</strong> Losing count of snoozes is a strong signal of accumulated sleep debt. Each snooze restarts a sleep cycle you never complete, worsening the grogginess.'});
+  else if(D.snooze>=2)iss.push({sev:'warning',t:'<strong>3 to 5 snoozes.</strong> This fragments your final REM cycle. One clean wake-up combined with morning light exposure leaves most people sharper.'});
+
+  if(D.feel>=3)iss.push({sev:'critical',t:'<strong>Waking worse than before you slept.</strong> This pattern can indicate sleep apnea, fragmented sleep, or clinical depression. If this is regular, worth talking to a doctor.'});
+  else if(D.feel>=2)iss.push({sev:'warning',t:'<strong>Grogginess until noon.</strong> Your alarm is likely pulling you out of deep sleep. Either your bedtime needs to shift earlier or your sleep quality is compromised.'});
+
+  if(iss.length===0)iss.push({sev:'info',t:'<strong>No major issues detected.</strong> Your sleep patterns align with what the science recommends. Your one focus: stay consistent, especially on weekends.'});
 
   go('results');
 
@@ -694,6 +779,9 @@ function showResults(){
   document.getElementById('dDesc').textContent=durD;
   document.getElementById('iBed').textContent=ch.b;
   document.getElementById('iWake').textContent=ch.w;
+  document.getElementById('iBedSub').textContent=idealSub;
+  var totalHrs=(idealWakeMin-idealBedMin+1440)%1440/60;
+  document.getElementById('iWakeSub').textContent=totalHrs.toFixed(1).replace('.0','')+' hrs of sleep';
 
   var ih='';
   for(var i=0;i<iss.length;i++){
