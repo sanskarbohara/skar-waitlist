@@ -78,7 +78,7 @@ transform:translateY(12px);opacity:0}
 .mob-menu .mm-cta{padding:14px 32px;background:#7c5cf6;color:#fff;border-radius:10px;font-size:16px;font-weight:700}
 
 /* HERO */
-.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;
 text-align:center;padding:120px 24px 80px;position:relative;z-index:1}
 .hero-orb{position:absolute;width:450px;height:450px;border-radius:50%;
 background:radial-gradient(circle,rgba(124,92,246,0.07) 0%,transparent 60%);
@@ -164,8 +164,8 @@ section{padding:80px 48px;position:relative;z-index:1}
   transition:box-shadow 0.3s,border-color 0.3s;-webkit-tap-highlight-color:transparent;
   display:grid;grid-template-columns:1.2fr 0.8fr;gap:32px;align-items:center;
   max-width:1100px;margin-left:auto;margin-right:auto;
-  transform-origin:center top;overflow:hidden;
-  contain:layout style paint;
+  transform-origin:center top;
+  contain:layout style;
 }
 .stack-card::before{content:'';position:absolute;inset:-1px;border-radius:15px;
 background:linear-gradient(135deg,rgba(124,92,246,0.12),transparent 35%,transparent 65%,rgba(124,92,246,0.16));
@@ -687,24 +687,18 @@ letter-spacing:0.1em;text-transform:uppercase;margin-right:6px}
 /* When sc-preview has a real app-screen inside it, override the fake decorative
    pseudo-elements from earlier and dress it as a mini phone frame. */
 .sc-preview.sc-has-phone{
-  min-height:auto!important;
-  background:#0a0a12!important;
-  border:7px solid #16161c!important;
-  border-radius:26px!important;
-  padding:22px 8px 10px!important;
+  min-height:auto!important;aspect-ratio:auto!important;
+  background:linear-gradient(180deg,#0d0d16,#080810)!important;
+  border:1px solid rgba(124,92,246,0.14)!important;
+  border-radius:16px!important;
+  padding:14px 12px!important;
   color:inherit!important;font-size:inherit!important;letter-spacing:0!important;
-  box-shadow:0 20px 40px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(255,255,255,0.05);
+  box-shadow:0 20px 40px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(255,255,255,0.03);
   overflow:hidden;position:relative;
-  transition:transform 0.35s ease-out, box-shadow 0.35s;
+  transition:transform 0.35s ease-out, box-shadow 0.35s, border-color 0.35s;
 }
-.sc-preview.sc-has-phone::before{
-  content:''!important;position:absolute!important;
-  top:6px!important;left:50%!important;transform:translateX(-50%)!important;
-  width:60px!important;height:14px!important;background:#000!important;
-  border-radius:0 0 10px 10px!important;
-  inset:auto!important;border:none!important;box-shadow:none!important;z-index:5!important;
-}
-.sc-preview.sc-has-phone::after{display:none!important}
+.sc-preview.sc-has-phone::before,
+.sc-preview.sc-has-phone::after{display:none!important;content:none!important}
 .sc-preview.sc-has-phone .ps{
   background:transparent!important;padding:4px 2px!important;min-height:auto!important;
   font-family:'Inter',sans-serif!important;
@@ -904,29 +898,6 @@ letter-spacing:0.1em;text-transform:uppercase;margin-right:6px}
 
 <hr class="ln">
 
-<section id="demo" class="demo-section">
-  <div class="inner">
-    <div class="slbl rv">Live preview</div>
-    <h2 class="sh rv rv1">See the app in action.</h2>
-    <p class="sd rv rv2">Switch between screens to see what your night looks like with Skar.</p>
-    <div class="demo-tabs rv rv3">
-      <div class="demo-tab active" onclick="showScreen('lock',this)">Lockdown</div>
-      <div class="demo-tab" onclick="showScreen('score',this)">Score</div>
-      <div class="demo-tab" onclick="showScreen('journey',this)">Journey</div>
-      <div class="demo-tab" onclick="showScreen('ritual',this)">Morning</div>
-      <div class="demo-tab" onclick="showScreen('mcard',this)">Card</div>
-    </div>
-    <div class="demo-phone rv rv4">
-      <div class="phone-shell">
-        <div class="phone-notch-bar"><div class="phone-notch-pill"></div></div>
-        <div class="phone-screen" id="demoScreen"></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<hr class="ln">
-
 <section id="doom" class="doom-sec">
   <div class="inner">
     <div class="slbl rv">Recognize this?</div>
@@ -1095,16 +1066,6 @@ function openModal(k){var f=features[k];document.getElementById('mTitle').textCo
 function closeModal(){document.getElementById('modalOverlay').classList.remove('open');document.body.style.overflow='';}
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal();});
 
-// DEMO SCREENS
-var screens={
-lock:'<div style="text-align:center;font-family:Plus Jakarta Sans;font-size:22px;font-weight:800;color:#F5F5F7;letter-spacing:2px;margin-top:6px;margin-bottom:3px">rest now.</div><div style="text-align:center;font-size:10px;color:#444;letter-spacing:2px;margin-bottom:14px">skar is watching.</div><div class="ps-card" style="border-color:rgba(124,92,246,0.3)"><div style="display:flex;align-items:center;gap:6px;margin-bottom:8px"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#7c5cf6" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span style="color:#7c5cf6;font-size:10px;font-weight:600;flex:1">Smart alarm</span><span style="background:rgba(0,200,83,0.2);color:#00C853;font-size:8px;font-weight:600;padding:2px 6px;border-radius:6px;border:1px solid rgba(0,200,83,0.4)">set</span></div><div style="font-family:Plus Jakarta Sans;font-size:16px;font-weight:800;color:#F5F5F7;letter-spacing:-0.02em">5:30 AM to 6:00 AM</div><div style="font-size:9px;color:#555;margin-top:2px">Optimal wake &middot; 5 cycles &middot; 7h 30m</div></div><div class="ps-card" style="display:flex;align-items:center;gap:10px"><div style="width:30px;height:30px;border-radius:50%;background:rgba(124,92,246,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#7c5cf6" stroke-width="2" stroke-linecap="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg></div><div><div style="color:#F5F5F7;font-size:10px;font-weight:600;margin-bottom:2px">Place your phone face down</div><div style="font-size:9px;color:#555;line-height:1.35">Near your pillow. Improves tracking accuracy.</div></div></div><div style="margin-top:14px;text-align:center"><div style="height:3px;background:#1a1a1a;border-radius:2px;margin-bottom:8px;width:82%;margin-left:auto;margin-right:auto"><div style="height:3px;width:38%;background:#7c5cf6;border-radius:2px"></div></div><div style="font-size:10px;color:#555;animation:blink 2s ease-in-out infinite">sleeping...</div></div>',
-score:'<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px"><div><div style="font-size:9px;color:#444;letter-spacing:2px;margin-bottom:3px">BACKSTAGE.</div><div style="font-family:Plus Jakarta Sans;font-size:20px;font-weight:800;color:#F5F5F7;margin-bottom:5px">Sanskar</div><div style="display:inline-flex;align-items:center;gap:4px;background:#111;border-radius:20px;padding:3px 9px;border:1px solid #1a1a1a"><span style="font-size:10px">&#128059;</span><span style="font-size:9px;color:#8B8B94">Steady Bear</span></div></div><div style="display:flex;align-items:center;gap:5px;background:#1a1a1a;border-radius:20px;padding:4px 10px;border:1px solid #2a2a2a"><span style="font-size:11px">&#128293;</span><span style="color:#F5F5F7;font-size:12px;font-weight:700">14</span></div></div><div class="ps-card" style="display:flex;align-items:center;gap:14px;padding:14px"><div style="position:relative;width:70px;height:70px;flex-shrink:0"><div style="position:absolute;inset:-6px;border-radius:50%;background:rgba(124,92,246,0.06);border:1px solid rgba(124,92,246,0.16)"></div><div style="position:absolute;inset:0;border-radius:50%;border:3px solid #7c5cf6;background:#111;display:flex;align-items:center;justify-content:center;flex-direction:column"><div style="font-size:24px;font-weight:800;color:#F5F5F7;line-height:1">87</div><div style="font-size:6px;color:#444;letter-spacing:1px;margin-top:2px;text-align:center;line-height:1">LAST<br>NIGHT</div></div></div><div style="flex:1;font-size:10px"><div style="color:#F5F5F7;font-weight:700">7h 42m</div><div style="color:#444;font-size:7px;letter-spacing:1px">SLEPT LAST NIGHT</div><div style="height:1px;background:#1a1a1a;margin:6px 0"></div><div style="color:#F5F5F7;font-weight:700">11:00 PM</div><div style="color:#444;font-size:7px;letter-spacing:1px">CLOCK IN TONIGHT</div><div style="height:1px;background:#1a1a1a;margin:6px 0"></div><div style="color:#7c5cf6;font-weight:700">14 day</div><div style="color:#444;font-size:7px;letter-spacing:1px">STREAK</div></div></div><div style="display:inline-flex;align-items:center;gap:4px;background:#111;border-radius:20px;padding:5px 10px;border:1px solid rgba(0,200,83,0.3);margin-top:10px"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#00C853" stroke-width="2.5"><path d="M23 6l-9.5 9.5-5-5L1 18"/><path d="M17 6h6v6"/></svg><span style="color:#00C853;font-size:10px">+45 pts this week</span></div>',
-journey:'<div style="text-align:center;margin-bottom:14px"><div style="font-family:Plus Jakarta Sans;font-size:22px;font-weight:800;color:#F5F5F7;margin-bottom:3px">Mumbai</div><div style="font-size:9px;color:#7c5cf6;letter-spacing:1px">CITY JOURNEY &middot; 5 of 12</div></div><div class="ps-card"><div style="height:3px;background:rgba(124,92,246,0.20);border-radius:2px;margin-bottom:14px"><div style="height:3px;width:42%;background:#7c5cf6;border-radius:2px"></div></div><div style="display:flex;flex-direction:column;gap:5px"><div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:rgba(124,92,246,0.12);border-radius:6px;border:1px solid rgba(124,92,246,0.25)"><div style="width:16px;height:16px;border-radius:50%;background:#7c5cf6;display:flex;align-items:center;justify-content:center;color:#fff;font-size:8px;flex-shrink:0">&#10003;</div><div style="font-size:10px;color:#F5F5F7;font-weight:500">Marine Drive</div></div><div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:rgba(124,92,246,0.12);border-radius:6px;border:1px solid rgba(124,92,246,0.25)"><div style="width:16px;height:16px;border-radius:50%;background:#7c5cf6;display:flex;align-items:center;justify-content:center;color:#fff;font-size:8px;flex-shrink:0">&#10003;</div><div style="font-size:10px;color:#F5F5F7;font-weight:500">Gateway of India</div></div><div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:rgba(232,180,0,0.08);border-radius:6px;border:1px solid rgba(232,180,0,0.3)"><div style="width:16px;height:16px;border-radius:50%;background:#E8B400;display:flex;align-items:center;justify-content:center;color:#0a0a12;font-size:9px;flex-shrink:0">&#9733;</div><div style="font-size:10px;color:#F5F5F7;font-weight:500">Bade Miyan</div><div style="margin-left:auto;font-size:7px;color:#E8B400;font-weight:600">WEEKLY</div></div><div style="display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:6px;border:1px dashed rgba(124,92,246,0.3);background:#0a0a12"><div style="width:16px;height:16px;border-radius:50%;border:1.5px solid rgba(124,92,246,0.4);display:flex;align-items:center;justify-content:center;color:#7c5cf6;font-size:9px;flex-shrink:0">?</div><div style="font-size:10px;color:#7c5cf6;font-weight:500">Tonight unlocks</div></div></div></div>',
-ritual:'<div style="text-align:center;margin-bottom:14px"><div style="font-family:Plus Jakarta Sans;font-size:20px;font-weight:800;color:#F5F5F7;margin-bottom:3px">good morning.</div><div style="font-size:10px;color:#555">3 steps to unlock your phone</div></div><div style="display:flex;flex-direction:column;gap:6px"><div class="ps-card" style="display:flex;align-items:center;gap:10px;border-color:rgba(0,200,83,0.25)"><div style="width:26px;height:26px;border-radius:6px;background:rgba(0,200,83,0.15);border:1px solid rgba(0,200,83,0.4);display:flex;align-items:center;justify-content:center;color:#00C853;font-size:12px;flex-shrink:0">&#10003;</div><div style="flex:1"><div style="font-size:11px;font-weight:600;color:#F5F5F7">Drink 500ml water</div><div style="font-size:9px;color:#555">Hydrate first thing</div></div></div><div class="ps-card" style="display:flex;align-items:center;gap:10px;border-color:rgba(124,92,246,0.35)"><div style="width:26px;height:26px;border-radius:6px;background:rgba(124,92,246,0.2);border:1px solid #7c5cf6;display:flex;align-items:center;justify-content:center;color:#7c5cf6;font-family:JetBrains Mono;font-size:11px;font-weight:600;flex-shrink:0">2</div><div style="flex:1"><div style="font-size:11px;font-weight:600;color:#F5F5F7">10 squats</div><div style="font-size:9px;color:#555">Get blood flowing</div></div></div><div class="ps-card" style="display:flex;align-items:center;gap:10px"><div style="width:26px;height:26px;border-radius:6px;background:#1a1a1a;border:1px solid #2a2a2a;display:flex;align-items:center;justify-content:center;color:#555;font-family:JetBrains Mono;font-size:11px;font-weight:600;flex-shrink:0">3</div><div style="flex:1"><div style="font-size:11px;font-weight:600;color:#8B8B94">Step into sunlight</div><div style="font-size:9px;color:#444">Reset circadian rhythm</div></div></div></div>',
-mcard:'<div style="text-align:center;margin-bottom:12px"><div style="font-family:JetBrains Mono;font-size:8px;color:#555;letter-spacing:2px">SLEEP LOG</div><div style="font-size:12px;color:#FF6B35;font-weight:800;letter-spacing:2px;margin-top:3px">THE DIRECTOR</div></div><div class="ps-card" style="border-color:rgba(255,107,53,0.4);text-align:center;padding:16px 14px;background:linear-gradient(180deg,rgba(255,107,53,0.06),#111)"><div style="display:inline-block;background:rgba(255,107,53,0.2);border:1px solid rgba(255,107,53,0.4);border-radius:6px;padding:3px 10px;font-size:8px;font-weight:800;letter-spacing:1.5px;color:#FF6B35;margin-bottom:10px">BLOCKBUSTER NIGHT</div><div style="font-family:Plus Jakarta Sans;font-size:52px;font-weight:800;color:#FF6B35;line-height:0.9">87</div><div style="font-size:8px;color:#444;letter-spacing:1.5px;margin-top:2px">LOCK SCORE</div><div style="display:flex;justify-content:space-around;margin-top:14px;padding-top:12px;border-top:1px solid #1a1a1a"><div style="text-align:center"><div style="font-size:11px;font-weight:800;color:#F5F5F7">7h 42m</div><div style="font-size:7px;color:#444;letter-spacing:1px">SLEPT</div></div><div style="text-align:center"><div style="font-size:11px;font-weight:800;color:#F5F5F7">11:07 PM</div><div style="font-size:7px;color:#444;letter-spacing:1px">CLOCKED IN</div></div><div style="text-align:center"><div style="font-size:11px;font-weight:800;color:#FF6B35">day 14</div><div style="font-size:7px;color:#444;letter-spacing:1px">STREAK</div></div></div></div><div style="display:flex;gap:2px;margin:10px 0 4px;justify-content:space-between">'+(function(){var s="";for(var i=0;i<30;i++){s+='<div style="flex:1;height:6px;border-radius:1px;background:'+(i<14?'#FF6B35':'#1a1a1a')+'"></div>';}return s;})()+'</div><div style="font-size:8px;color:#555;text-align:center;letter-spacing:0.5px;margin-bottom:8px">14 of 30 days &middot; keep going</div><div style="background:rgba(255,107,53,0.08);border:1px solid rgba(255,107,53,0.22);border-radius:10px;padding:10px 12px;text-align:center;font-size:10px;color:#FF6B35;font-style:italic;line-height:1.5">"Picture abhi baaki hai mere dost."</div>'
-};
-function showScreen(k,el){var ds=document.getElementById('demoScreen');ds.style.opacity='0';ds.style.transform='translateY(8px)';setTimeout(function(){ds.innerHTML=screens[k];ds.style.transition='opacity 0.4s ease, transform 0.4s ease';ds.style.opacity='1';ds.style.transform='translateY(0)';},150);document.querySelectorAll('.demo-tab').forEach(function(t){t.classList.remove('active');});if(el)el.classList.add('active');}
-showScreen('lock',document.querySelector('.demo-tab'));
 
 // ANIMATED COUNTERS
 function animateCounter(el,target,suffix){var s=0;var dur=2000;var start=null;function step(ts){if(!start)start=ts;var p=Math.min((ts-start)/dur,1);var ease=1-Math.pow(1-p,3);el.textContent=Math.floor(ease*target)+(suffix||'');if(p<1)requestAnimationFrame(step);}requestAnimationFrame(step);}
